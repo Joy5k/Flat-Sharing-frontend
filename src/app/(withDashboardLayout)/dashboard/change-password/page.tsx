@@ -23,7 +23,8 @@ const ChangePassword = () => {
   const [error, setError] = useState<string>("");
   const [changePassword] = useChangePasswordMutation();
   const router = useRouter();
-  const onSubmit = async (values: FieldValues) => {
+   const onSubmit = async (values: FieldValues) => {
+      setError("");
     if (values.newPassword !== values.confirmPassword) {
       setError(
         "Passwords do not match. Please ensure both passwords are identical."
@@ -32,13 +33,10 @@ const ChangePassword = () => {
       setError("");
       try {
         const res = await changePassword(values);
-console.log(res,"change password response")
         if ("data" in res && res.data.statusCode === 200) {
           toast.success("Password Changed Successfully");
           logoutUser(router);
-        } else {
-          setError("Incorrect Old Password");
-        }
+        } 
       } catch (error) {
         toast.success("Incorrect Old Password");
         console.log(error);
