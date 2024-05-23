@@ -78,15 +78,7 @@ const Navbar = () => {
           </Stack>
 
           {userInfo?.userId ? (
-            //      <Typography
-            //      component={Link}
-            //      fontWeight="semi-bold"
-            //      href='/dashboard'
-            //      color='#005480'
-            //   >
-            //      My Profile
-            //   </Typography>
-
+    
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

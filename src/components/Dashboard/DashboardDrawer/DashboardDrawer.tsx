@@ -82,7 +82,7 @@ export default function DashboardDrawer({
                 component="div"
                 sx={{ color: "rgba(11, 17, 52, 0.6)" }}
               >
-                Hi, {isLoading ? "Loading..." : data?.name},
+                Hi,{isLoading ? "Loading..." : data?.username}
               </Typography>
               <Typography
                 variant="h6"
@@ -90,7 +90,7 @@ export default function DashboardDrawer({
                 component="div"
                 sx={{ color: "primary.main" }}
               >
-                Welcome to PH Health Care!
+                Welcome to Spare Room
               </Typography>
             </Box>
             <Stack direction="row" gap={3}>

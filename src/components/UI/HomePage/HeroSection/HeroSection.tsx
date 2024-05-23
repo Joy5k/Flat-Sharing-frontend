@@ -45,7 +45,7 @@ const HeroSection = () => {
         </Typography>
        
         <Box sx={{ display: "flex", gap: 2, justifyContent: "center", }}>
-          <Button href="/dashboard/postFlat">Share Your Flat</Button>
+          <Button href="/dashboard/user/postFlat">Share Your Flat</Button>
   
         </Box>
       </Box>
