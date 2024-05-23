@@ -32,12 +32,12 @@ const ChangePassword = () => {
       setError("");
       try {
         const res = await changePassword(values);
-
-        if ("data" in res && res.data.status === 200) {
+console.log(res,"change password response")
+        if ("data" in res && res.data.statusCode === 200) {
           toast.success("Password Changed Successfully");
           logoutUser(router);
         } else {
-          throw new Error("Incorrect Old Password");
+          setError("Incorrect Old Password");
         }
       } catch (error) {
         toast.success("Incorrect Old Password");

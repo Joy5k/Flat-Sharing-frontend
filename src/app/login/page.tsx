@@ -23,19 +23,18 @@ const LoginPage = () => {
    const [error, setError] = useState('');
 
    const handleLogin = async (values: FieldValues) => {
-      // console.log(values);
+   
       try {
          const res = await userLogin(values);
-         if (res?.data?.accessTokeLn) {
+         if (res?.data?.accessToken) {
             toast.success(res?.message);
             storeUserInfo({ accessToken: res?.data?.accessToken });
-            // router.push("/dashboard");
          } else {
-            setError(res.message);
-            // console.log(res);
+            setError(res?.message || 'An error occurred while logging in.');
          }
       } catch (err: any) {
-         console.error(err.message);
+         console.error(err);
+         setError('An error occurred while logging in.');
       }
    };
 
@@ -80,21 +79,7 @@ const LoginPage = () => {
                   </Box>
                </Stack>
 
-               {error && (
-                  <Box>
-                     <Typography
-                        sx={{
-                           backgroundColor: 'red',
-                           padding: '1px',
-                           borderRadius: '2px',
-                           color: 'white',
-                           marginTop: '5px',
-                        }}
-                     >
-                        {error}
-                     </Typography>
-                  </Box>
-               )}
+          
 
                <Box>
                   <SPForm
@@ -123,7 +108,19 @@ const LoginPage = () => {
                            />
                         </Grid>
                      </Grid>
-
+                     {error && (
+                  <Box>
+                     <Typography
+                        sx={{
+                        
+                           color: 'red',
+                           marginTop: '5px',
+                        }}
+                     >
+                        {error}
+                     </Typography>
+                  </Box>
+               )}
                      <Link href={'/forgot-password'}>
                         <Typography
                            mb={1}
@@ -137,6 +134,8 @@ const LoginPage = () => {
                            Forgot Password?
                         </Typography>
                      </Link>
+
+              
 
                      <Button
                         sx={{
