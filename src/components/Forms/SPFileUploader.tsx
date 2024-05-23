@@ -11,7 +11,7 @@ type TProps = {
   sx?: SxProps;
 };
 
-export default function PHFileUploader({ name, label, sx }: TProps) {
+export default function SPFileUploader({ name, label, sx }: TProps) {
   const { control } = useFormContext();
   return (
     <Controller

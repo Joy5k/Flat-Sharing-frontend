@@ -15,7 +15,7 @@ type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
 } & TFormConfig;
 
-const PHForm = ({
+const SPForm = ({
   children,
   onSubmit,
   resolver,
@@ -47,4 +47,4 @@ const PHForm = ({
   );
 };
 
-export default PHForm;
+export default SPForm;

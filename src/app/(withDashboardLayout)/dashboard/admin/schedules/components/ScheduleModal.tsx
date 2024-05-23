@@ -1,7 +1,7 @@
 import PHDatePicker from "@/components/Forms/PHDatePicker";
-import PHForm from "@/components/Forms/PHForm";
+import SPForm from "@/components/Forms/SPForm";
 import PHTimePicker from "@/components/Forms/PHTimePicker";
-import PHModal from "@/components/Shared/PHModal/PHModal";
+import PHModal from "@/components/Shared/SPModal/SPModal";
 import { useCreateScheduleMutation } from "@/redux/api/scheduleApi";
 import { dateFormatter } from "@/utils/dateFormatter";
 import { timeFormatter } from "@/utils/timeFormatter";
@@ -38,7 +38,7 @@ const ScheduleModal = ({ open, setOpen }: TProps) => {
 
   return (
     <PHModal open={open} setOpen={setOpen} title="Create Schedule">
-      <PHForm onSubmit={handleFormSubmit}>
+      <SPForm onSubmit={handleFormSubmit}>
         <Grid container spacing={2} sx={{ width: "400px" }}>
           <Grid item md={12}>
             <PHDatePicker name="startDate" label="Start Date" />
@@ -56,7 +56,7 @@ const ScheduleModal = ({ open, setOpen }: TProps) => {
         <Button type="submit" sx={{ mt: 1 }}>
           Create
         </Button>
-      </PHForm>
+      </SPForm>
     </PHModal>
   );
 };

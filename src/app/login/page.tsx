@@ -8,8 +8,8 @@ import { userLogin } from '@/services/actions/userLogin';
 import { storeUserInfo } from '@/services/auth.services';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import PHForm from '@/components/Forms/PHForm';
-import PHInput from '@/components/Forms/PHInput';
+import SPForm from '@/components/Forms/SPForm';
+import SPInput from '@/components/Forms/SPInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -64,17 +64,18 @@ const LoginPage = () => {
                      alignItems: 'center',
                   }}
                >
-                  <Box>
+                  <Box   >
                      <Image
                         src={assets.svgs.logo}
-                        width={50}
-                        height={50}
+                        width={200}
+                        height={200}
+                      
                         alt='logo'
                      />
                   </Box>
                   <Box>
-                     <Typography variant='h6' fontWeight={600}>
-                        Login PH HealthCare
+                     <Typography variant='h4' fontWeight={600} color="primary">
+                        Login 
                      </Typography>
                   </Box>
                </Stack>
@@ -96,7 +97,7 @@ const LoginPage = () => {
                )}
 
                <Box>
-                  <PHForm
+                  <SPForm
                      onSubmit={handleLogin}
                      resolver={zodResolver(validationSchema)}
                      defaultValues={{
@@ -106,7 +107,7 @@ const LoginPage = () => {
                   >
                      <Grid container spacing={2} my={1}>
                         <Grid item md={6}>
-                           <PHInput
+                           <SPInput
                               name='email'
                               label='Email'
                               type='email'
@@ -114,7 +115,7 @@ const LoginPage = () => {
                            />
                         </Grid>
                         <Grid item md={6}>
-                           <PHInput
+                           <SPInput
                               name='password'
                               label='Password'
                               type='password'
@@ -150,7 +151,7 @@ const LoginPage = () => {
                         Don&apos;t have an account?{' '}
                         <Link href='/register'>Create an account</Link>
                      </Typography>
-                  </PHForm>
+                  </SPForm>
                </Box>
             </Box>
          </Stack>

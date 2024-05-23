@@ -1,10 +1,10 @@
 import { Button, Grid } from "@mui/material";
 import { Gender } from "@/types/common";
 import { FieldValues } from "react-hook-form";
-import PHForm from "@/components/Forms/PHForm";
-import PHInput from "@/components/Forms/PHInput";
-import PHSelectField from "@/components/Forms/PHSelectField";
-import PHFullScreenModal from "@/components/Shared/PHModal/PHFullScreenModal";
+import SPForm from "@/components/Forms/SPForm";
+import SPInput from "@/components/Forms/SPInput";
+import PHSelectField from "@/components/Forms/SPSelectField";
+import PHFullScreenModal from "@/components/Shared/SPModal/SPFullScreenModal";
 import { useCreateDoctorMutation } from "@/redux/api/doctorApi";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { toast } from "sonner";
@@ -53,10 +53,10 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
 
   return (
     <PHFullScreenModal open={open} setOpen={setOpen} title="Create New Doctor">
-      <PHForm onSubmit={handleFormSubmit} defaultValues={defaultValues}>
+      <SPForm onSubmit={handleFormSubmit} defaultValues={defaultValues}>
         <Grid container spacing={2} sx={{ my: 5 }}>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.name"
               label="Name"
               fullWidth={true}
@@ -64,7 +64,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.email"
               type="email"
               label="Email"
@@ -74,7 +74,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="password"
               type="password"
               label="Password"
@@ -84,7 +84,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.contactNumber"
               label="Contract Number"
               fullWidth={true}
@@ -92,7 +92,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.address"
               label="Address"
               fullWidth={true}
@@ -100,7 +100,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.registrationNumber"
               label="Registration Number"
               fullWidth={true}
@@ -108,7 +108,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.experience"
               type="number"
               label="Experience"
@@ -125,7 +125,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.apointmentFee"
               type="number"
               label="ApointmentFee"
@@ -134,7 +134,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.qualification"
               label="Qualification"
               fullWidth={true}
@@ -143,7 +143,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.currentWorkingPlace"
               label="Current Working Place"
               fullWidth={true}
@@ -151,7 +151,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <PHInput
+            <SPInput
               name="doctor.designation"
               label="Designation"
               fullWidth={true}
@@ -161,7 +161,7 @@ const DoctorModal = ({ open, setOpen }: TProps) => {
         </Grid>
 
         <Button type="submit">Create</Button>
-      </PHForm>
+      </SPForm>
     </PHFullScreenModal>
   );
 };

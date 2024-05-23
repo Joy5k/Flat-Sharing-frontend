@@ -8,10 +8,10 @@ const HomePage = () => {
   return (
     <>
       <HeroSection />
-      <TopRatedDoctors />
-      <WhyUs />
-      <HowItWorks />
-      <Stats />
+      {/* <TopRatedDoctors /> */}
+      {/* <WhyUs /> */}
+      {/* <HowItWorks /> */}
+      {/* <Stats /> */}
     </>
   );
 };

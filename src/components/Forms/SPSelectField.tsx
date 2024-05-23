@@ -13,7 +13,7 @@ interface ITextField {
   items: string[];
 }
 
-const PHSelectField = ({
+const SPSelectField = ({
   items,
   name,
   label,
@@ -56,4 +56,4 @@ const PHSelectField = ({
   );
 };
 
-export default PHSelectField;
+export default SPSelectField;

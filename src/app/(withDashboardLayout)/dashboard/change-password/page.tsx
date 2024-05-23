@@ -1,7 +1,5 @@
 'use client';
 
-import PHForm from '@/components/Forms/PHForm';
-import PHInput from '@/components/Forms/PHInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { FieldValues } from 'react-hook-form';
@@ -11,6 +9,8 @@ import { useChangePasswordMutation } from '@/redux/api/authApi';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { logoutUser } from '@/services/actions/logoutUser';
+import SPForm from '@/components/Forms/SPForm';
+import SPInput from '@/components/Forms/SPInput';
 
 const validationSchema = z.object({
    oldPassword: z.string().min(6, 'Must be at least 6 characters long'),
@@ -67,14 +67,14 @@ const ChangePassword = () => {
                Change password
             </Typography>
          </Stack>
-         <PHForm
+         <SPForm
             onSubmit={onSubmit}
             defaultValues={{ oldPassword: '', newPassword: '' }}
             resolver={zodResolver(validationSchema)}
          >
             <Grid>
                <Grid item xs={12} sm={12} md={6}>
-                  <PHInput
+                  <SPInput
                      name='oldPassword'
                      type='password'
                      label='Old Password'
@@ -83,7 +83,7 @@ const ChangePassword = () => {
                   />
                </Grid>
                <Grid item xs={12} sm={12} md={6}>
-                  <PHInput
+                  <SPInput
                      name='newPassword'
                      type='password'
                      label='New Password'
@@ -96,7 +96,7 @@ const ChangePassword = () => {
             <Button type='submit' sx={{ width: '100%', my: 2 }}>
                change Password
             </Button>
-         </PHForm>
+         </SPForm>
       </Box>
    );
 };

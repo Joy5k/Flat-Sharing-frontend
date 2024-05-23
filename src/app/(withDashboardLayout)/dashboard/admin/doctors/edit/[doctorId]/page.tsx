@@ -1,8 +1,8 @@
 "use client";
 
-import PHForm from "@/components/Forms/PHForm";
-import PHInput from "@/components/Forms/PHInput";
-import PHSelectField from "@/components/Forms/PHSelectField";
+import SPForm from "@/components/Forms/SPForm";
+import SPInput from "@/components/Forms/SPInput";
+import PHSelectField from "@/components/Forms/SPSelectField";
 import {
   useGetDoctorQuery,
   useUpdateDoctorMutation,
@@ -67,13 +67,13 @@ const DoctorUpdatePage = ({ params }: TParams) => {
       {isLoading ? (
         "Loading..."
       ) : (
-        <PHForm
+        <SPForm
           onSubmit={handleFormSubmit}
           defaultValues={data && defaultValues}
         >
           <Grid container spacing={2} sx={{ my: 5 }}>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="name"
                 label="Name"
                 fullWidth={true}
@@ -81,7 +81,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="email"
                 type="email"
                 label="Email"
@@ -91,7 +91,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
             </Grid>
 
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="contactNumber"
                 label="Contract Number"
                 fullWidth={true}
@@ -99,7 +99,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="address"
                 label="Address"
                 fullWidth={true}
@@ -107,7 +107,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="registrationNumber"
                 label="Registration Number"
                 fullWidth={true}
@@ -115,7 +115,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="experience"
                 type="number"
                 label="Experience"
@@ -132,7 +132,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="apointmentFee"
                 type="number"
                 label="ApointmentFee"
@@ -141,7 +141,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="qualification"
                 label="Qualification"
                 fullWidth={true}
@@ -150,7 +150,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
             </Grid>
 
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="currentWorkingPlace"
                 label="Current Working Place"
                 fullWidth={true}
@@ -158,7 +158,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <PHInput
+              <SPInput
                 name="designation"
                 label="Designation"
                 fullWidth={true}
@@ -168,7 +168,7 @@ const DoctorUpdatePage = ({ params }: TParams) => {
           </Grid>
 
           <Button type="submit">Update</Button>
-        </PHForm>
+        </SPForm>
       )}
     </Box>
   );

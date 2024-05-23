@@ -3,9 +3,10 @@
 import useUserInfo from '@/hooks/useUserInfo';
 import { logoutUser } from '@/services/actions/logoutUser';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
+import assets from "@/assets";
 const Navbar = () => {
    const userInfo = useUserInfo();
    const router = useRouter();
@@ -27,58 +28,43 @@ const Navbar = () => {
                justifyContent='space-between'
                alignItems='center'
             >
-               <Typography
-                  variant='h4'
-                  component={Link}
-                  href='/'
-                  fontWeight={600}
-               >
-                  P
-                  <Box component='span' color="#1FAB89">
-                     H
-                  </Box>{' '}
-                  Health Care
-               </Typography>
-
+               <Box>
+                  <Image src={assets.svgs.logo} alt="Logo" width={250} height={250} />
+             </Box>
                <Stack direction='row' justifyContent='space-between' gap={4}>
                   <Typography
                      component={Link}
+                     mt={1}
                      href='/'
                      color='#ffffff'
                   >
                      Home
                   </Typography>
-
-                  <Typography color='#ffffff'>About us</Typography>
-               
-                  {userInfo?.userId ? (
-                     <Typography
-                        component={Link}
-                        href='/dashboard'
-                        color='#ffffff'
-                     >
-                        My Profile
-                     </Typography>
-                  ) : (
-                     <Button component={Link} href='/login'>
-                        Login
-                     </Button>
-                  )}
+                  <Typography
+                     component={Link}
+                     mt={1}
+                     href='/'
+                     color='#ffffff'
+                  >
+                     About us
+                  </Typography>
+                 
                </Stack>
 
-               {/* {userInfo?.userId ? (
-                  <Button
-                     color='error'
-                     onClick={handleLogOut}
-                     sx={{ boxShadow: 0 }}
-                  >
-                     Logout
-                  </Button>
+               {userInfo?.userId ? (
+                 <Typography
+                 component={Link}
+                
+                 href='/dashboard'
+                 color='#ffffff'
+              >
+                 My Profile
+              </Typography>
                ) : (
                   <Button component={Link} href='/login'>
                      Login
                   </Button>
-               )} */}
+               )}
             </Stack>
          </Container>
       </Box>
