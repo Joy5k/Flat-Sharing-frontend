@@ -30,7 +30,7 @@ const SideBar = () => {
         component={Link}
         href="/"
       >
-        <Image src={assets.svgs.logo} width={40} height={40} alt="logo" />
+       
         <Typography
           variant="h6"
           component="h1"
@@ -38,7 +38,7 @@ const SideBar = () => {
             cursor: "pointer",
           }}
         >
-          PH Health Care
+         <Image src={assets.svgs.logo} width={200} height={100} alt="logo" />
         </Typography>
       </Stack>
       <List>
