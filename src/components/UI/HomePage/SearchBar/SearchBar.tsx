@@ -5,8 +5,6 @@ import {
   Box,
   TextField,
   IconButton,
-  Grid,
-  Button,
   Typography,
 } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
@@ -14,117 +12,121 @@ import Slider from "@mui/material/Slider";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
-
-function valuetext(value: number) {
-    return `${value}°C`;
-  }
 
 const SearchField: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [bedRoom, setBedroomNumber] = useState<number|''>('');
+  const [bedrooms, setBedroomNumber] = useState<number|''>('');
 
-  const [minPrice, setMinPrice] = React.useState<number>(20);
-  const [maxPrice, setMaxPrice] = React.useState<number>(37);
+  const [minPrice, setMinPrice] = React.useState<number>(0);
+  const [maxPrice, setMaxPrice] = React.useState<number>(1000000);
+  console.log({minPrice,maxPrice,bedrooms,searchTerm})
 
+
+// set min price and max price
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
       setMinPrice(newValue[0]);
       setMaxPrice(newValue[1]);
     }
   };
-console.log({minPrice,maxPrice})
-    
+
+    // handle Search Term
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
+  //set bed room quantity
   const handleSelectBedroom = (event:any) => {
-      setBedroomNumber(Number(event.target.value));
+      setBedroomNumber(event.target.value);
       
     };
     
   return (
-    <Box sx={{ backgroundColor: "#fff", margin: "0 auto", maxWidth: 1600 }}>
-      <Typography
-        sx={{ fontSize: "30px", fontWeight: "600", margin: "0 auto" }}
-      >
-        Filter Flat
-      </Typography>
-
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "10px",
+    <Box sx={{ backgroundColor: "#fff", margin: "0 auto", maxWidth: 1600, padding: 2 }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "10px 0",
+      }}
+    >
+      <Typography 
+        sx={{ 
+          fontSize: { xs: "24px", md: "30px" }, 
+          fontWeight: "600", 
+          color: "primary.main", 
+          marginTop: "50px" 
         }}
       >
-        <Box sx={{ marginLeft: "100px", fontSize: "20px" }}>
-          <p>Search Flat location</p>
-        </Box>
-
-
- {/* price range selector */}
- <Box sx={{ width: 300 }}>
-      <Slider
-        getAriaLabel={() => 'Price range'}
-        value={[minPrice, maxPrice]}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        // getAriaValueText={valuetext}
-      />
+        Filter Your Desired Flat
+      </Typography>
     </Box>
 
-        {/* select number of bedroom selector      Box */}
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "10px",
+        gap: { xs: 2, md: 0 },
+      }}
+    >
+      {/* Price range selector */}
+      <Box sx={{ width: { xs: "100%", md: 300 } }}>
+        <Typography my={2} ml={2}>Choose Price Range</Typography>
+        <Slider
+          getAriaLabel={() => 'Price range'}
+          value={[minPrice, maxPrice]}
+          onChange={handleChange}
+          valueLabelDisplay="auto"
+        />
+      </Box>
 
-        <Box sx={{ minWidth: 120 }}>
-          <Typography>Choose number of Bed room</Typography>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Bed Room</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={bedRoom}
-              label="Bed Room"
-              onChange={(e)=>handleSelectBedroom(e.target.value)}
-            >
-              <MenuItem value={1}>One</MenuItem>
-              <MenuItem value={2}>Two</MenuItem>
-              <MenuItem value={3}>Three</MenuItem>
-              <MenuItem value={4}>Four</MenuItem>
-              <MenuItem value={5}>Five</MenuItem>
-              <MenuItem value={6}>Six</MenuItem>
-              <MenuItem value={7}>Seven</MenuItem>
-              <MenuItem value={8}>Eight</MenuItem>
-              <MenuItem value={9}>Nine</MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+      {/* Select number of bedroom selector */}
+      <Box sx={{ minWidth: 120, width: { xs: "100%", md: "auto" } }}>
+        <Typography my={2}>Choose number of Bed room</Typography>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Bed Room</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={bedrooms}
+            label="Bed Room"
+            onChange={handleSelectBedroom}
+          >
+            {Array.from({ length: 10 }, (_, i) => (
+              <MenuItem key={i + 1} value={i + 1}>{i + 1}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
-        <Box sx={{ margin: "0 65px", maxWidth: 400 }}>
-          <form onSubmit={handleSearch}>
-            <TextField
-              label="Search location"
-              variant="outlined"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              fullWidth
-              InputProps={{
-                endAdornment: (
-                  <IconButton type="submit" aria-label="search">
-                    <SearchIcon />
-                  </IconButton>
-                ),
-              }}
-            />
-          </form>
-        </Box>
+      {/* Search Flat Location */}
+      <Box sx={{ margin: { xs: "0 auto", md: "0 65px" }, width: "100%", maxWidth: 400 }}>
+        <Typography my={2}>Search Flat Location</Typography>
+        <form onSubmit={handleSearch}>
+          <TextField
+            label="Search location"
+            variant="outlined"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <IconButton type="submit" aria-label="search">
+                  <SearchIcon />
+                </IconButton>
+              ),
+            }}
+          />
+        </form>
       </Box>
     </Box>
-
+  </Box>
   );
 };
 
