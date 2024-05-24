@@ -23,8 +23,7 @@ function valuetext(value: number) {
 
 const SearchField: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [val, setPrice] = useState<number>(0);
-  const [bedRoom, setBedroomNumber] = useState<number>();
+  const [bedRoom, setBedroomNumber] = useState<number|''>('');
 
   const [minPrice, setMinPrice] = React.useState<number>(20);
   const [maxPrice, setMaxPrice] = React.useState<number>(37);
@@ -35,7 +34,7 @@ const SearchField: React.FC = () => {
       setMaxPrice(newValue[1]);
     }
   };
-
+console.log({minPrice,maxPrice})
     
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -74,7 +73,7 @@ const SearchField: React.FC = () => {
         value={[minPrice, maxPrice]}
         onChange={handleChange}
         valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
+        // getAriaValueText={valuetext}
       />
     </Box>
 
