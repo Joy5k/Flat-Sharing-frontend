@@ -13,7 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
+import Divider from '@mui/material/Divider';
 
 const SearchField: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -44,7 +44,7 @@ const SearchField: React.FC = () => {
     };
     
   return (
-    <Box sx={{ backgroundColor: "#fff", margin: "0 auto", maxWidth: 1600, padding: 2 }}>
+    <Box sx={{ backgroundColor: "#fff", margin: "0 auto", maxWidth: 1200, padding: 2 }}>
     <Box
       sx={{
         display: "flex",
@@ -64,6 +64,7 @@ const SearchField: React.FC = () => {
         Filter Your Desired Flat
       </Typography>
     </Box>
+        <Divider>Spare Room</Divider>
 
     <Box
       sx={{
@@ -106,7 +107,7 @@ const SearchField: React.FC = () => {
       </Box>
 
       {/* Search Flat Location */}
-      <Box sx={{ margin: { xs: "0 auto", md: "0 65px" }, width: "100%", maxWidth: 400 }}>
+      <Box sx={{ margin: { xs: "0 auto", md: "0 65px" }, width: "100%", maxWidth: 250 }}>
         <Typography my={2}>Search Flat Location</Typography>
         <form onSubmit={handleSearch}>
           <TextField
