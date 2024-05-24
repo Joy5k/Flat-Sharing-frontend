@@ -20,9 +20,11 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                      textDecoration: "underline",
-                    
-                  }}
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
                 >
                   Why flat share?
                 </Typography>
@@ -31,9 +33,11 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                      textDecoration: "underline",
-                    
-                  }}
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
                 >
                   The Rent a Room scheme
                 </Typography>
@@ -42,9 +46,11 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                      textDecoration: "underline",
-                    
-                  }}
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
                 >
                   Guide to taking in a lodger
                 </Typography>
@@ -53,9 +59,11 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                      textDecoration: "underline",
-                    
-                  }}
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
                 >
                   Landlords guide to renting by the room
                 </Typography>
@@ -64,8 +72,10 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
+                    textDecoration: "none",
+                    "&:hover": {
                       textDecoration: "underline",
-                   
+                    },
                   }}
                 >
                   Shared Home Insurance
@@ -75,8 +85,10 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
+                    textDecoration: "none",
+                    "&:hover": {
                       textDecoration: "underline",
-                  
+                    },
                   }}
                 >
                   Tenancy Agreements
@@ -92,9 +104,10 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                  
+                    textDecoration: "none",
+                    "&:hover": {
                       textDecoration: "underline",
-                    
+                    },
                   }}
                 >
                   Advertise a room
@@ -103,8 +116,11 @@ const Footer = () => {
                   component={Link}
                   color="white"
                   href="/"
-                  sx={{ 
+                  sx={{
+                    textDecoration: "none",
+                    "&:hover": {
                       textDecoration: "underline",
+                    },
                   }}
                 >
                   Post a room wanted ad
@@ -114,9 +130,11 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                      textDecoration: "underline",
-                    
-                  }}
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
                 >
                   Advertise a whole property
                 </Typography>
@@ -125,9 +143,11 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                      textDecoration: "underline",
-                    
-                  }}
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
                 >
                   Student Accommodation
                 </Typography>
@@ -136,9 +156,11 @@ const Footer = () => {
                   color="white"
                   href="/"
                   sx={{
-                      textDecoration: "underline",
-                    
-                  }}
+            textDecoration: "none",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }}
                 >
                   Monday to Friday lets
                 </Typography>
