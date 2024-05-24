@@ -45,7 +45,7 @@ const Navbar = () => {
           alignItems="center"
         >
           <Box>
-            <Image src={assets.svgs.logo} alt="Logo" width={250} height={250} />
+            <Image src={assets.svgs.logo} alt="Logo" width={150} height={150} />
           </Box>
           <Stack direction="row" justifyContent="space-between" gap={4}>
             <Typography
@@ -60,7 +60,7 @@ const Navbar = () => {
             <Typography
               component={Link}
               mt={1}
-              href="/"
+              href="/about"
               color="#005480"
               fontWeight="semi-bold"
             >
