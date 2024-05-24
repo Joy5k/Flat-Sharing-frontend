@@ -4,6 +4,7 @@ import {
   Button,
   Container,
   Grid,
+  Input,
   Stack,
   TextField,
   Typography,
@@ -15,6 +16,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import SPFileUploader from "@/components/Forms/SPFileUploader";
 import SPInput from "@/components/Forms/SPInput";
 import SPForm from "@/components/Forms/SPForm";
+import { FieldValues } from "react-hook-form";
 
 const createFlatSchema = z.object({
   location: z.string({
@@ -56,10 +58,30 @@ export const defaultFlatValues = {
 const PostFlat = () => {
   const [error, setError] = useState<string>("");
   const [amenities, setAmenities] = useState<string[]>([]);
+  const [photos, setPhotos] = useState([]);
 
+  // Function to handle image selection
+  const handleImageChange = (event:any) => {
+    const selectedFiles = event.target.files;
+    const selectedPhotos:any = [];
+
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        selectedPhotos.push(e.target?.result);
+        if (selectedPhotos.length === selectedFiles.length) {
+          setPhotos(selectedPhotos);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   
   const handleFlatPost = (values: FieldValues) => {
-    console.log({...values,amenities})
+ 
+    console.log({...values,amenities,photos})
 
   };
   return (
@@ -130,7 +152,11 @@ const PostFlat = () => {
               />
             </Grid>
             <Grid item md={6}>
-              <SPFileUploader label="Flat Photos" name="photo" />
+            <Input
+        type="file"
+        inputProps={{ multiple: true }}
+        onChange={handleImageChange}
+      />
             </Grid>
             {error && (
               <Typography ml={2} color="error">
