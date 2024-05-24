@@ -2,10 +2,9 @@
 import {
   Box,
   Button,
-  Container,
+  CircularProgress,
   Grid,
   Input,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,10 +12,11 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Autocomplete from "@mui/material/Autocomplete";
-import SPFileUploader from "@/components/Forms/SPFileUploader";
 import SPInput from "@/components/Forms/SPInput";
 import SPForm from "@/components/Forms/SPForm";
 import { FieldValues } from "react-hook-form";
+import uploadImage from "@/components/ImageUploader/ImageUploader";
+import { useFlatPostMutation } from "@/redux/api/flatApi";
 
 const createFlatSchema = z.object({
   location: z.string({
@@ -40,7 +40,7 @@ const createFlatSchema = z.object({
     .array(
       z
         .string({
-          required_error: "Multiples Photos is need!",
+          required_error: "Multiples Photos are needed!",
         })
         .url()
     )
@@ -50,88 +50,77 @@ const createFlatSchema = z.object({
 export const defaultFlatValues = {
   location: "",
   description: "",
-  rentAmount:1000 ,
-  bedrooms:2 ,
+  rentAmount: 1000,
+  bedrooms: 2,
   amenities: [],
   photos: [],
 };
+
 const PostFlat = () => {
   const [error, setError] = useState<string>("");
   const [amenities, setAmenities] = useState<string[]>([]);
-  const [photos, setPhotos] = useState([]);
-
-  // Function to handle image selection
-  const handleImageChange = (event:any) => {
+  const [photos, setPhotos] = useState<{imageUrl: string }[]>([]);
+    const [postFlat,{isLoading}]=useFlatPostMutation()
+  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
-    const selectedPhotos:any = [];
-
+    if (!selectedFiles) return;
+  
+    const uploadedPhotos: { imageUrl: string }[] = [];
     for (let i = 0; i < selectedFiles.length; i++) {
       const file = selectedFiles[i];
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        selectedPhotos.push(e.target?.result);
-        if (selectedPhotos.length === selectedFiles.length) {
-          setPhotos(selectedPhotos);
-        }
-      };
-      reader.readAsDataURL(file);
+      const response = await uploadImage(file);
+      if (response) {
+        uploadedPhotos.push({imageUrl: response.imageUrl});
+      }
     }
+    setPhotos(uploadedPhotos);
   };
   
-  const handleFlatPost = (values: FieldValues) => {
- 
-    console.log({...values,amenities,photos})
-
+  const handleFlatPost = async(values: FieldValues) => {
+   const res=await postFlat({ ...values, amenities, photos })
+    console.log(res,"this is backend response");
   };
+
   return (
     <Box>
       <h3>This is flat post page</h3>
       <Box>
         <SPForm
           onSubmit={handleFlatPost}
-          // resolver={zodResolver(createFlatSchema)}
-           defaultValues={defaultFlatValues}
+          resolver={zodResolver(createFlatSchema)}
+          defaultValues={defaultFlatValues}
         >
           <Grid container spacing={2} my={1}>
-
             <Grid item md={6}>
-              <SPInput label="Location" fullWidth={true} name="location" 
-             
-             />
+              <SPInput label="Location" fullWidth={true} name="location" />
             </Grid>
 
             <Grid item md={6}>
               <SPInput
                 label="Description"
-               
                 fullWidth={true}
                 name="description"
-                
               />
             </Grid>
 
             <Grid item md={6}>
-            <SPInput
-  label="Rent Amount"
-  type="number"
-  fullWidth={true}
- 
-  name="rentAmount"
- 
-/>
+              <SPInput
+                label="Rent Amount"
+                type="number"
+                fullWidth={true}
+                name="rentAmount"
+              />
             </Grid>
 
             <Grid item md={6}>
               <SPInput
                 label="Bed Rooms"
-               type="number"
-               
+                type="number"
                 fullWidth={true}
                 name="bedrooms"
-              
               />
             </Grid>
+
             <Grid item md={6}>
               <Autocomplete
                 multiple
@@ -151,13 +140,15 @@ const PostFlat = () => {
                 )}
               />
             </Grid>
+
             <Grid item md={6}>
-            <Input
-        type="file"
-        inputProps={{ multiple: true }}
-        onChange={handleImageChange}
-      />
+              <Input
+                type="file"
+                inputProps={{ multiple: true }}
+                onChange={handleImageChange}
+              />
             </Grid>
+
             {error && (
               <Typography ml={2} color="error">
                 {error}
@@ -171,9 +162,10 @@ const PostFlat = () => {
             fullWidth={true}
             type="submit"
           >
-            <Typography component="p" color="white">
+            {isLoading ? <CircularProgress color={"warning"} /> : <Typography component="p" color="white">
               Share Flat
-            </Typography>
+            </Typography>}
+            
           </Button>
         </SPForm>
       </Box>
