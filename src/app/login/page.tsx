@@ -13,6 +13,7 @@ import SPInput from '@/components/Forms/SPInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export const validationSchema = z.object({
    email: z.string().email('Please enter a valid email address!'),
@@ -21,19 +22,22 @@ export const validationSchema = z.object({
 
 const LoginPage = () => {
    const [error, setError] = useState('');
-
+const [loading,setLoading]=useState(false)
    const handleLogin = async (values: FieldValues) => {
    
       try {
+         setLoading(true)
          const res = await userLogin(values);
          if (res?.data?.accessToken) {
             toast.success(res?.message);
             storeUserInfo({ accessToken: res?.data?.accessToken });
+            setLoading(false)
          } else {
             setError(res?.message || 'An error occurred while logging in.');
          }
       } catch (err: any) {
          console.error(err);
+         setLoading(false)
          setError('An error occurred while logging in.');
       }
    };
@@ -144,7 +148,8 @@ const LoginPage = () => {
                         fullWidth={true}
                         type='submit'
                      >
-                        Login
+                        {loading ? <CircularProgress color="secondary" />:
+                        Login}
                      </Button>
                      <Typography component='p' fontWeight={300}>
                         Don&apos;t have an account?{' '}
