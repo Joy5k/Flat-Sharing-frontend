@@ -22,6 +22,7 @@ const SearchField: React.FC = () => {
 
   const [minPrice, setMinPrice] = React.useState<number>(0);
   const [maxPrice, setMaxPrice] = React.useState<number>(1000000);
+  
   const searchData={minPrice,maxPrice,bedrooms,searchTerm}
 
 

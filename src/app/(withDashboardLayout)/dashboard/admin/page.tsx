@@ -1,8 +1,10 @@
+import { Box } from "@mui/material";
+
 const AdminPage = () => {
   return (
-    <div>
+    <Box>
       <h1>Admin Dashboard</h1>
-    </div>
+    </Box>
   );
 };
 

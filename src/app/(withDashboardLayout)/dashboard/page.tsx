@@ -1,8 +1,10 @@
+import { Box } from "@mui/material";
+
 const DashboardHomePage = () => {
   return (
-    <div>
+    <Box>
       <h1>Welcome to dashboard</h1>
-    </div>
+    </Box>
   );
 };
 

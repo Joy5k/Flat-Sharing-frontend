@@ -1,4 +1,5 @@
 "use client";
+"use client"
 
 import useUserInfo from "@/hooks/useUserInfo";
 import { logoutUser } from "@/services/actions/logoutUser";
@@ -12,16 +13,21 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {  getUserInfo } from "@/services/auth.services";
+import {  getUserInfo,isLoggedIn } from "@/services/auth.services";
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const checkLoggedIn = getUserInfo()
+  const[userExists,setUserExists]=useState<boolean>(false)
+  const isTrue = isLoggedIn()
   const router = useRouter();
+
+  useEffect(()=>{
+    setUserExists(isTrue)
+  },[isTrue])
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -78,7 +84,7 @@ const Navbar = () => {
             </Typography>
           </Stack>
 
-          {checkLoggedIn ? (
+          {userExists ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -120,7 +126,7 @@ const Navbar = () => {
               </Menu>
             </Box>
           ) : (
-            <Button component={Link} href="/login">
+            <Button component={Link} href="/login" suppressHydrationWarning>
               Login
             </Button>
           )}

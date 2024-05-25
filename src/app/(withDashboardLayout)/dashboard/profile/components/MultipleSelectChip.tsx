@@ -44,7 +44,7 @@ export default function MultipleSelectChip({
    };
 
    return (
-      <div>
+      <Box>
          <FormControl sx={{ width: '100%' }}>
             <InputLabel
                id='demo-multiple-chip-label'
@@ -99,6 +99,6 @@ export default function MultipleSelectChip({
                ))}
             </Select>
          </FormControl>
-      </div>
+      </Box>
    );
 }

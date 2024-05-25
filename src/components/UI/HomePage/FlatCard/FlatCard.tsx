@@ -20,16 +20,14 @@ import DetailsIcon from '@mui/icons-material/Details';
 import Link from "next/link";
 
 export default function FlatCard({ searchData }: any) {
-    const { data, isLoading } = useGetFlatPostsQuery(undefined)
-   
-    const handleButtonClick = (id:string) => {
-    };
+
+    const { data, isLoading } = useGetFlatPostsQuery(searchData)
+
   return (
    <Box sx={{margin:"100px 0 0 0"}}>
     {isLoading ? <Typography color="text.secondary">
          Loading...
          </Typography>: 
-    
  <Grid container spacing={2}>
  {data.map((flat:any) => (
    <Grid item key={flat.id} xs={12} sm={6} md={4}>

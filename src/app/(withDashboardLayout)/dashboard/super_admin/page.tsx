@@ -1,10 +1,11 @@
+import { Box } from "@mui/material";
 import React from "react";
 
 const SuperAdminPage = () => {
   return (
-    <div>
+    <Box>
       <h1>Super Admin Dashboard</h1>
-    </div>
+    </Box>
   );
 };
 
