@@ -12,8 +12,8 @@ const SideBar = () => {
   const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
-    const { role } = getUserInfo() as any;
-    setUserRole(role);
+    const { role } = getUserInfo() as UserInfo;
+    setUserRole(role.toLowerCase());
   }, []);
 
   return (

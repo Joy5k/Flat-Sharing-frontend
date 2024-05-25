@@ -1,16 +1,27 @@
-"use server";
+"use server"
 
-export const registerUser = async (data: any) => {
-  console.log(data,"in register user")
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/user/create-user`,
-    {
-      method: "POST",
-      body: JSON.stringify(data),
-      cache: "no-store",
+export const registerUser = async (userData: any) => {
+  try {
+    const res = await fetch(
+      "http://localhost:5000/api/v1/user/create-user",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Specify the content type as JSON
+        },
+        body: JSON.stringify(userData),
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to register user");
     }
-  );
 
-  const userInfo = await res.json();
-  return userInfo;
+    const userInfo = await res.json();
+    return userInfo;
+  } catch (error) {
+    console.error("Error registering user:", error);
+    throw error; // Rethrow the error for handling at a higher level
+  }
 };

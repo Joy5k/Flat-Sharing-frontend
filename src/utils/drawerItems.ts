@@ -36,7 +36,7 @@ export const drawerItems = (role: UserRole): DrawerItem[] => {
             },
             {
                title: 'Manage Users',
-               path: `${role}/manage-users`,
+               path: `${role}/manageUsers`,
                icon: GroupIcon,
             }
          );

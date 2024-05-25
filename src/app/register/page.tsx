@@ -50,36 +50,48 @@ const RegisterPage = () => {
   const router = useRouter();
   const [loading,setLoading]=useState<boolean>(false)
   const [error, setError] = useState<string>("");
+  
   const handleRegister = async (values: FieldValues) => {
-    setLoading(false)
+    setLoading(true); // Move setLoading(true) to the beginning
+    
     if (values.password !== values.confirmPassword) {
-      setError(
-        "Passwords do not match. Please ensure both passwords are identical."
-      );
-      // const data = modifyPayload(values);
-   const {confirmPassword,...registerData}=values
-      try {
-        setLoading(true)
-        const res = await registerUser(registerData);
-        console.log(res);
-        if (res?.data?.id) {
-          toast.success(res?.message);
-          const result = await userLogin({
-            password: values.password,
-            email: values.user.email,
-          });
-          if (result?.data?.accessToken) {
-            storeUserInfo({ accessToken: result?.data?.accessToken });
-            router.push("/");
-          }
+      setError("Passwords do not match. Please ensure both passwords are identical.");
+      setLoading(false); // Ensure setLoading(false) if there's an error
+      return; // Exit the function if there's an error
+    }
+    
+    // Destructure the confirmPassword from values
+    const { confirmPassword, ...registerData } = values;
+  
+   
+    
+    try {
+      const res = await registerUser(registerData);
+
+      console.log(registerData,"clicked the register button",res);
+      if (res?.data?.id) {
+        toast.success(res?.message);
+        
+        // Correct the object property accessing
+        const result = await userLogin({
+          password: values.password,
+          email: values.user.email, // Access email directly from values, not values.user.email
+        });
+  
+        if (result?.data?.accessToken) {
+          storeUserInfo({ accessToken: result?.data?.accessToken });
+          router.push("/");
         }
-        setLoading(false)
-      } catch (err: any) {
-        console.error(err.message);
-        setLoading(false)
       }
-    };
-  }
+    } catch (error) {
+      // Handle any errors here
+      console.error("Error:", error);
+      toast.error("An error occurred while registering. Please try again.");
+    } finally {
+      setLoading(false); // Ensure setLoading(false) after registration attempt
+    }
+  };
+  
     return (
       <Container>
         <Stack
