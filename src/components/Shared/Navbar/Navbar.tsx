@@ -16,11 +16,11 @@ import { useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {  isLoggedIn } from "@/services/auth.services";
+import {  getUserInfo } from "@/services/auth.services";
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const checkLoggedIn = isLoggedIn()
+  const checkLoggedIn = getUserInfo()
   const router = useRouter();
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);

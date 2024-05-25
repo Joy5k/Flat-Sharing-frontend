@@ -13,9 +13,20 @@ export const flatApi = baseApi.injectEndpoints({
            };
         },
         invalidatesTags: [tagTypes.flatPost],
-     }),
+    }),
+    getFlatPosts:build.query({
+      query:(args)=>{
+         return {
+            url:"/flat/get-all-flats",
+            // url:`/flat/get-all-flats?bedrooms=${args.bedrooms}&location=${args.location}&minPrice=${args.minPrice}&maxPrice=${args.maxPrice}`,
+            method: 'GET',
+         }
+      },
+      providesTags: [tagTypes.flatPost],
+     })
   }),
+  
 
 });
 
-export const { useFlatPostMutation } = flatApi;
+export const { useFlatPostMutation,useGetFlatPostsQuery } = flatApi;

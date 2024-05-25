@@ -53,7 +53,12 @@ const defaultMenus = [
                title: 'Manage Users',
                path: `${role}/manageUsers`,
                icon: GroupIcon,
-            }
+           },
+            {
+              title: 'Flat Post',
+              path: `${role}/flatPost`,
+              icon: PostAddIcon,
+           },
          );
          break;
 

@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Divider from '@mui/material/Divider';
+import FlatCard from "../FlatCard/FlatCard";
 
 const SearchField: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,7 +22,7 @@ const SearchField: React.FC = () => {
 
   const [minPrice, setMinPrice] = React.useState<number>(0);
   const [maxPrice, setMaxPrice] = React.useState<number>(1000000);
-  console.log({minPrice,maxPrice,bedrooms,searchTerm})
+  const searchData={minPrice,maxPrice,bedrooms,searchTerm}
 
 
 // set min price and max price
@@ -44,7 +45,10 @@ const SearchField: React.FC = () => {
     };
     
   return (
-    <Box sx={{ backgroundColor: "#fff", margin: "0 auto", maxWidth: 1200, padding: 2 }}>
+    <Box sx={{
+      backgroundColor: "#fff",
+      margin: "0 auto", maxWidth: 1200, padding: 2
+    }}>
     <Box
       sx={{
         display: "flex",
@@ -126,7 +130,8 @@ const SearchField: React.FC = () => {
           />
         </form>
       </Box>
-    </Box>
+      </Box>
+      <FlatCard searchData={searchData}></FlatCard>
   </Box>
   );
 };
