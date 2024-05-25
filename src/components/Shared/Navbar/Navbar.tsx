@@ -16,10 +16,11 @@ import { useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
+import {  isLoggedIn } from "@/services/auth.services";
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const userInfo = useUserInfo();
+  const checkLoggedIn = isLoggedIn()
   const router = useRouter();
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -77,8 +78,7 @@ const Navbar = () => {
             </Typography>
           </Stack>
 
-          {userInfo?.userId ? (
-    
+          {checkLoggedIn ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -116,8 +116,7 @@ const Navbar = () => {
                 <Typography textAlign="center" color="orange"  onSubmit={handleLogOut}>
                    <LogoutIcon/> Logout
                   </Typography>
-                       </MenuItem>
-                       
+                       </MenuItem>      
               </Menu>
             </Box>
           ) : (

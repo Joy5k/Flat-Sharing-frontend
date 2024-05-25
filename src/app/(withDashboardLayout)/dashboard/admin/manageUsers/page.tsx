@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from 'sonner';
 import { Box, IconButton, Pagination, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -22,10 +23,7 @@ const ManageUsers = () => {
   const query: Record<string, any> = {};
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [editUserRole, setEditUserRole] = useState<{
-    id: string;
-    status: string;
-  } | null>(null);
+
   query["page"] = page;
   query["limit"] = limit;
   const [users, setAllUsers] = useState<any>([]);
@@ -44,19 +42,21 @@ const ManageUsers = () => {
    const newStatus = currentStatus === USER_STATUS.ACTIVE ? USER_STATUS.BLOCKED : USER_STATUS.ACTIVE;
  
  const res=await  changeUserStatus({ userId:id, status: newStatus });
-console.log(res,"check the chage user status response")
  };
 
-  const handleRoleChange = async(id: string, currentStatus: string) => {
-   const newRole = currentStatus === USER_ROLE.ADMIN ? USER_STATUS.USER : USER_STATUS.ADMIN;
-   
+  const handleRoleChange = async(id: string, currentRole: string) => {
+   const newRole = currentRole === USER_ROLE.ADMIN ? USER_ROLE.USER : USER_ROLE.ADMIN;
+console.log({newRole,currentRole})
  const res=await  changeUserRole({ userId:id, role: newRole });
+ if(res?.data?.success){
+  toast.success("Change user Role successfully")
+ }
 console.log(res,"check the change user role response")
  };
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-
+console.log(users,'the data')
   useEffect(() => {
     const updateData = data?.map((user: any, index: number) => {
       return {
@@ -65,6 +65,7 @@ console.log(res,"check the change user role response")
         username: user.username,
         email: user.email,
         status: user.status,
+        role: user.role,
       };
     });
     setAllUsers(updateData);
@@ -75,6 +76,7 @@ console.log(res,"check the change user role response")
     { field: "username", headerName: "User name", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
     { field: "status", headerName: "User Status", flex: 1 },
+    { field: "role", headerName: "User Role", flex: 1 },
 
     {
       field: "action",
@@ -97,12 +99,12 @@ console.log(res,"check the change user role response")
       flex: 1,
       headerAlign: "center",
       align: "center",
-      renderCell: ({ row }: { row: { id: string; status: string } }) => (
+      renderCell: ({ row }: { row: { id: string; role: string } }) => (
         <Button
-          onClick={() => handleStatusChange(row.id, row.role)}
+          onClick={() => handleRoleChange(row.id, row.role)}
           sx={{ background: "orange" }}
         >
-          {row.role === USER_ROLE.USER ? "Creat Admin" : "Create User"}
+          {row.role === USER_ROLE.USER ? "Create Admin" : "Create User"}
         </Button>
       ),
     },

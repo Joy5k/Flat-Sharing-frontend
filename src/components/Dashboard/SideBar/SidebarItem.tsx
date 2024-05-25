@@ -1,47 +1,78 @@
+
 import Link from 'next/link';
 import {
-   ListItem,
-   ListItemButton,
-   ListItemIcon,
-   ListItemText,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+  List,
 } from '@mui/material';
-import MailIcon from '@mui/icons-material/Mail';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import { DrawerItem } from '@/types';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { DrawerItem } from '@/types';
 
 type IProps = {
-   item: DrawerItem;
+  item: DrawerItem;
 };
 
-const SidebarItem = ({ item }: IProps) => {
-   const linkPath = `/dashboard/${item.path}`;
-   const pathname = usePathname();
+const SidebarItem = ({ item }: any) => {
+  const linkPath = item.path ? `/dashboard/${item.path}` : undefined;
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
-   console.log({ pathname, linkPath });
-   return (
-      <Link href={linkPath}>
-         <ListItem
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  const isActive = (path: string) => pathname.startsWith(`/dashboard/${path}`);
+
+  return (
+    <>
+      {linkPath ? (
+        <Link href={linkPath}>
+          <ListItem
             disablePadding
             sx={{
-               ...(pathname === linkPath
-                  ? {
-                       borderRight: '3px solid #1586FD',
-                       '& svg': {
-                          color: '#1586FD',
-                       },
-                    }
-                  : {}),
-               mb: 1,
+              mb: 1,
+              ...(isActive(item.path)
+                ? {
+                    borderRight: '3px solid #1586FD',
+                    '& svg': {
+                      color: '#1586FD',
+                    },
+                  }
+                : {}),
             }}
-         >
-            <ListItemButton>
-               <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
-               <ListItemText primary={item.title} />
+          >
+            <ListItemButton onClick={item.children ? handleClick : undefined}>
+              <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+              <ListItemText primary={item.title} />
+              {item.children && (open ? <ExpandLess /> : <ExpandMore />)}
             </ListItemButton>
-         </ListItem>
-      </Link>
-   );
+          </ListItem>
+        </Link>
+      ) : (
+        <ListItem disablePadding>
+          <ListItemButton onClick={handleClick}>
+            <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+            <ListItemText primary={item.title} />
+            {item.children && (open ? <ExpandLess /> : <ExpandMore />)}
+          </ListItemButton>
+        </ListItem>
+      )}
+      {item.children && (
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            {item.children.map((child: DrawerItem, index: number) => (
+              <SidebarItem key={index} item={child} />
+            ))}
+          </List>
+        </Collapse>
+      )}
+    </>
+  );
 };
 
 export default SidebarItem;

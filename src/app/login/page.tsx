@@ -7,7 +7,6 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { userLogin } from '@/services/actions/userLogin';
 import { storeUserInfo } from '@/services/auth.services';
 import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 import SPForm from '@/components/Forms/SPForm';
 import SPInput from '@/components/Forms/SPInput';
 import { z } from 'zod';
@@ -149,7 +148,7 @@ const [loading,setLoading]=useState(false)
                         type='submit'
                      >
                         {loading ? <CircularProgress color="secondary" />:
-                        Login}
+                       <Typography component="p" color="white"> Login</Typography>}
                      </Button>
                      <Typography component='p' fontWeight={300}>
                         Don&apos;t have an account?{' '}

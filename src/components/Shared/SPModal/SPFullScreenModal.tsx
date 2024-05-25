@@ -23,7 +23,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PHFullScreenModal({
+export default function SPFullScreenModal({
   open = false,
   setOpen,
   title = "",

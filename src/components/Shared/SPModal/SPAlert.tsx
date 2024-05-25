@@ -17,7 +17,7 @@ type TProps = {
 
 // ok
 
-export default function PHAlert({
+export default function SPAlert({
   open,
   setOpen,
   title,

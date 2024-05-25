@@ -12,19 +12,34 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
 export const drawerItems = (role: UserRole): DrawerItem[] => {
    const roleMenus: DrawerItem[] = [];
-
-   const defaultMenus = [
+const defaultMenus = [
+  {
+    title: 'Profile',
+    icon: PersonIcon,
+    children: [
       {
-         title: 'Profile',
-         path: `${role}/profile`,
-         icon: PersonIcon,
+        title: 'Edit Profile',
+        path: `${role}/profile`,
+        icon: PersonIcon,
       },
       {
-         title: 'Change Password',
-         path: `change-password`,
-         icon: KeyIcon,
+        title: 'My Flat Posts',
+        path: `${role}/profile/flat-posts`,
+        icon: PostAddIcon,
       },
-   ];
+      {
+        title: 'Flat Requests',
+        path: `${role}/profile/flat-requests`,
+        icon: RequestPageIcon,
+      },
+      {
+        title: 'Change Password',
+        path: `${role}/profile/change-password`,
+        icon: KeyIcon,
+      },
+    ],
+  },
+];
 
    switch (role) {
       case USER_ROLE.ADMIN:

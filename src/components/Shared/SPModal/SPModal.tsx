@@ -26,7 +26,7 @@ type TModalProps = {
   sx?: SxProps;
 };
 
-export default function PHModal({
+export default function SPModal({
   open = false,
   setOpen,
   title = "",

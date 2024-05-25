@@ -12,10 +12,10 @@ export type UserRole = keyof typeof USER_ROLE;
 
 export interface DrawerItem {
   title: string;
-  path: string;
+  path?: string;
   parentPath?: string;
   icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
-  child?: DrawerItem[];
+  children?: DrawerItem[]; 
 }
 
 export type ResponseSuccessType = {
