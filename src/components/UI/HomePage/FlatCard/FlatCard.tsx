@@ -17,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useGetFlatPostsQuery } from '@/redux/api/flatApi';
 import DetailsIcon from '@mui/icons-material/Details';
+import Link from "next/link";
 
 export default function FlatCard({ searchData }: any) {
     const { data, isLoading } = useGetFlatPostsQuery(undefined)
@@ -24,7 +25,7 @@ export default function FlatCard({ searchData }: any) {
     const handleButtonClick = (id:string) => {
     };
   return (
-   <Box sx={{margin:"100px 0"}}>
+   <Box sx={{margin:"100px 0 0 0"}}>
     {isLoading ? <Typography color="text.secondary">
          Loading...
          </Typography>: 
@@ -56,7 +57,7 @@ image={flat.photos[0] ? flat.photos[0].imageUrl : "https://images.pexels.com/pho
 
        <CardActions disableSpacing>
          
-         <Button onClick={() => handleButtonClick(flat.id)} variant="contained" sx={{margin:"0 auto"}}><DetailsIcon/> Details</Button>
+         <Button  variant="contained" component={Link} href={`/flatDetails/${flat.id}`} sx={{margin:"0 auto"}}><DetailsIcon/> Details</Button>
        </CardActions>
      </Card>
    </Grid>
