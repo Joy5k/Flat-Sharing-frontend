@@ -10,20 +10,35 @@ import Image from 'next/image';
 const FlatDetailsPage = ({ params }: any) => {
   const { data, isLoading, error } = useGetSingleFlatQuery(params.flatId);
   const [currentIndex, setCurrentIndex] = useState(0);
-console.log(params.flatId,'the params')
+console.log(data?.photos,"The photos")
   if (isLoading) {
-    return <Typography variant="body1">Loading flat details...</Typography>;
+    return <Typography variant="body1" sx={{
+      height:"100vh",
+      color:"primary.main",
+      fontWeight:"600",
+      fontSize:"30px",
+      textAlign:"center",
+      margin:"50px auto"
+      
+    }}>Loading flat details...</Typography>;
   }
 
   if (error) {
     return (
-      <Typography variant="body1" color="error">
+      <Typography variant="body1" color="error" sx={{
+        height:"100vh",
+        color:"red",
+        fontWeight:"600",
+        fontSize:"30px",
+        textAlign:"center",
+        margin:"50px auto"
+      }}>
         Error fetching flat details.
       </Typography>
     );
   }
 
-  const flat = data?.data;
+  const flat = data;
   const photos = flat?.photos || [];
 
   const handleNext = () => {

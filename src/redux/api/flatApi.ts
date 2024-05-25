@@ -17,7 +17,6 @@ export const flatApi = baseApi.injectEndpoints({
       
       getFlatPosts: build.query({
          query: (args) => {
-            console.log(args,"this is argumetn in redux")
             return {
                url: `/flat/get-all-flats?bedrooms=${args.bedrooms && args.bedrooms}&location=${args.searchTerm}&priceMin=${args.minPrice}&priceMax=${args.maxPrice}`,
                method: 'GET',
@@ -28,9 +27,10 @@ export const flatApi = baseApi.injectEndpoints({
     
     getSingleFlat: build.query({
        query: (flatId) => {
-          console.log(flatId.flatId,'The flat id is ')
             return {
-               url: `/flat/getSingleFlat/${flatId.flatId}`,
+               //don't change the below( // )
+               url: `//flat/getSingleFlat/${flatId}`,
+
                method: 'GET',
             }
          },
