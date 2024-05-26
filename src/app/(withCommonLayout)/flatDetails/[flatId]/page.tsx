@@ -2,10 +2,11 @@
 
 import { useGetSingleFlatQuery } from "@/redux/api/flatApi";
 import React, { useState } from 'react';
-import { Box, IconButton, Paper, Typography } from '@mui/material';
+import { Box, IconButton, Paper,Button, Typography } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Image from 'next/image';
+import Link from "next/link";
 
 const FlatDetailsPage = ({ params }: any) => {
   const { data, isLoading, error } = useGetSingleFlatQuery(params.flatId);
@@ -72,18 +73,40 @@ console.log(data?.photos,"The photos")
             objectFit="cover"
           />
         </Box>
-        <IconButton onClick={handleNext} sx={{ color: 'primary.main', position: 'absolute', right: 0, zIndex: 1 }}>
+        <IconButton onClick={handleNext} color="primary.main" sx={{ color: 'primary.main', position: 'absolute', right: 0, zIndex: 1 }}>
           <KeyboardArrowRightIcon />
         </IconButton>
       </Paper>
       <Box sx={{ p: 2 }}>
-        <Typography variant="h5" sx={{
+        <Typography variant="h5" color="primary.main" sx={{
           margin:"5px 0"
         }}>Flat Location: {flat?.location}</Typography>
-        <Typography variant="body1" sx={{ mt: 1,mb:5 }}>Flat Details Informations: {flat?.description}</Typography>
-        <Typography variant="body2" sx={{ mt: 1 }}>
-          Rent: ${flat?.rentAmount} | Bedrooms: {flat?.bedrooms}
+        <Typography variant="body1" color="primary.main" sx={{ mt: 1,mb:5 }}>Flat Details Informations:<Typography>{flat?.description}</Typography> </Typography>
+        <Typography variant="body2"  color="primary.main" sx={{ mt: 1 ,
+          fontWeight:"300",
+          fontSize:"20px"
+         
+        }}>
+          Rent: ${flat?.rentAmount}  |  Bedrooms: {flat?.bedrooms}
+         
         </Typography>
+        <Typography variant="body2"  color="primary.main" sx={{ mt: 1 ,
+          fontWeight:"300",
+          fontSize:"20px"
+         
+        }}>
+          Amenities of The Flat:
+           {flat.amenities.map((item, index) => (
+        <li key={index}>{item}</li>
+      ))}
+  
+        </Typography>
+        <Button component={Link} href={`/flatShareRequest/${flat.id}`} sx={{
+          
+margin:"20px auto"
+        }}>
+Request to share
+        </Button>
       </Box>
     </Box>
   );
