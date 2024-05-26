@@ -50,18 +50,25 @@ console.log(data?.photos,"The photos")
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '700px', margin: '0 auto' }}>
+    <Box sx={{ width: '100%', maxWidth: '600px', margin: '10px auto', }}>
       <Paper elevation={3} sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
         <IconButton onClick={handlePrev} sx={{ color: 'primary.main', position: 'absolute', left: 0, zIndex: 1 }}>
           <KeyboardArrowLeftIcon />
         </IconButton>
-        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ flexGrow: 1, display: 'flex', 
+        justifyContent: 'center',
+        width: '100%', 
+        maxWidth: '600px', 
+        height:"400px",
+        boxShadow: 'none',
+        margin: '0 auto' 
+        }}>
           <Image
             src={photos[currentIndex]?.imageUrl}
             alt={`Flat image ${currentIndex + 1}`}
             layout="intrinsic"
-            width={700}
-            height={475}
+            width={600}
+            height={400}
             objectFit="cover"
           />
         </Box>
@@ -70,8 +77,10 @@ console.log(data?.photos,"The photos")
         </IconButton>
       </Paper>
       <Box sx={{ p: 2 }}>
-        <Typography variant="h5">{flat?.location}</Typography>
-        <Typography variant="body1" sx={{ mt: 1 }}>{flat?.description}</Typography>
+        <Typography variant="h5" sx={{
+          margin:"5px 0"
+        }}>Flat Location: {flat?.location}</Typography>
+        <Typography variant="body1" sx={{ mt: 1,mb:5 }}>Flat Details Informations: {flat?.description}</Typography>
         <Typography variant="body2" sx={{ mt: 1 }}>
           Rent: ${flat?.rentAmount} | Bedrooms: {flat?.bedrooms}
         </Typography>
