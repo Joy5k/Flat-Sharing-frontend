@@ -71,9 +71,9 @@ console.log(data?.photos,"The photos")
             width={600}
             height={400}
             objectFit="cover"
-          />
+          /> 
         </Box>
-        <IconButton onClick={handleNext} color="primary.main" sx={{ color: 'primary.main', position: 'absolute', right: 0, zIndex: 1 }}>
+        <IconButton onClick={handleNext} sx={{ color: 'primary.main', position: 'absolute', right: 0, zIndex: 1 }}>
           <KeyboardArrowRightIcon />
         </IconButton>
       </Paper>
@@ -96,7 +96,7 @@ console.log(data?.photos,"The photos")
          
         }}>
           Amenities of The Flat:
-           {flat.amenities.map((item, index) => (
+           {flat.amenities.map((item:any, index:any) => (
         <li key={index}>{item}</li>
       ))}
   

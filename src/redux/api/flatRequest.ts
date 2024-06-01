@@ -1,7 +1,7 @@
 import { baseApi } from './baseApi';
 import { tagTypes } from '../tag-types';
 
-export const flatApi = baseApi.injectEndpoints({
+export const flatRequestApi = baseApi.injectEndpoints({
    endpoints: (build) => ({
       flatRequestPost: build.mutation({
          query: (data) => {
@@ -15,30 +15,20 @@ export const flatApi = baseApi.injectEndpoints({
          invalidatesTags: [tagTypes.flatRequestPost],
       }),
       
-      
-      getFlatPosts: build.query({
-         query: (args) => {
-            return {
-               url: `/flat/get-all-flats?bedrooms=${args.bedrooms && args.bedrooms}&location=${args.searchTerm}&priceMin=${args.minPrice}&priceMax=${args.maxPrice}`,
-               method: 'GET',
-            }
-         },
-         providesTags: [tagTypes.flatPost],
-      }),
     
-    getSingleFlat: build.query({
-       query: (flatId) => {
+    getAllFlatRequest: build.query({
+       query: () => {
             return {
                //don't change the below( // )
-               url: `//flat/getSingleFlat/${flatId}`,
+               url: "flat-share-request/getAllFlatRequest",
 
                method: 'GET',
             }
          },
-         providesTags: [tagTypes.flatPost],
+         providesTags: [tagTypes.flatRequestPost],
       })
 
    })
 })
 
-export const { useFlatRequestPostMutation,useGetFlatPostsQuery,useGetSingleFlatQuery } = flatApi;
+export const { useFlatRequestPostMutation,useGetAllFlatRequestQuery } = flatRequestApi;

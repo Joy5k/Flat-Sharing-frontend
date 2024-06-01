@@ -9,6 +9,6 @@ export enum tagTypes {
 export const tagTypesList = [
    tagTypes.admin,
    tagTypes.user,
-   tagTypes.flatPost
+   tagTypes.flatPost,
    tagTypes.flatRequestPost
 ];
