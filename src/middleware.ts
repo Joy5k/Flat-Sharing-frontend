@@ -10,9 +10,11 @@ const commonPrivateRoutes = [
    '/dashboard',
    '/dashboard/change-password',
    '/doctors',
+   '/flatPost'
+
 ];
 const roleBasedPrivateRoutes = {
-   USER: [/^\/dashboard\/user/],
+   USER: [/^\/dashboard\/user/, /^\/flatDetails\/[a-z0-9-]+/],
    ADMIN: [/^\/dashboard\/admin/],
    SUPER_ADMIN: [/^\/dashboard\/super-admin/],
 };
