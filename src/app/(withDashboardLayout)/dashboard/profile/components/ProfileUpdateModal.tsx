@@ -35,8 +35,8 @@ const ProfileUpdateModal = ({ open, setOpen, id, user, updateUser }: TProps) => 
       };
       setUpdating(false);
       setOpen(false);
-    const res=await  updateUser(payload);
-   if(res.data.id){
+    const res=  updateUser(payload);
+   if(res?.data?.id){
       toast.success("Profile Updated");
       logoutUser(router);
    }
