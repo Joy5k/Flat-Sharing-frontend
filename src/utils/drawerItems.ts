@@ -73,7 +73,7 @@ const defaultMenus = [
             },
             {
                title: 'Flat Share Requests',
-               path: `${role}/flatRequests`,
+               path: `profile/flatRequests`,
                icon: RequestPageIcon,
             },
          );

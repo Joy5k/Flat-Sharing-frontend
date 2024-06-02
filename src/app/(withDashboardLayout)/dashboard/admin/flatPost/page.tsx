@@ -17,6 +17,7 @@ import SPForm from "@/components/Forms/SPForm";
 import { FieldValues } from "react-hook-form";
 import uploadImage from "@/components/ImageUploader/ImageUploader";
 import { useFlatPostMutation } from "@/redux/api/flatApi";
+import { useRouter } from "next/navigation";
 
 const createFlatSchema = z.object({
   location: z.string({
@@ -57,6 +58,7 @@ export const defaultFlatValues = {
 };
 
 const PostFlat = () => {
+  const router=useRouter()
   const [error, setError] = useState<string>("");
   const [amenities, setAmenities] = useState<string[]>([]);
   const [photos, setPhotos] = useState<{imageUrl: string }[]>([]);
@@ -78,7 +80,10 @@ const PostFlat = () => {
   
   const handleFlatPost = async(values: FieldValues) => {
    const res=await postFlat({ ...values, amenities, photos })
+    if (res?.data?.id) {
+     router.push("/dashboard/profile/flatPosts")
     console.log(res,"this is backend response");
+   }
   };
 
   return (
