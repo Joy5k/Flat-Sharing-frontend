@@ -14,11 +14,15 @@ export const profileAPi = baseApi.injectEndpoints({
       }),
       updateMYProfile: build.mutation({
          query: (data) => {
+            console.log(data,"from the redux")
             return {
-               url: '/user/update-my-profile',
+               url: '/user/editProfile',
                method: 'PATCH',
-               data,
-               contentType: 'multipart/form-data',
+               data:{
+                  username:data?.username,
+                  email:data?.email
+               },
+               contentType: 'application/json',
             };
          },
          invalidatesTags: [tagTypes.user],

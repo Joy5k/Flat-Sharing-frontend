@@ -108,7 +108,7 @@ const Navbar = () => {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" component={Link} href="/"  >
+                  <Typography textAlign="center" component={Link} href="/dashboard/profile"  >
                 <PersonIcon/>    Profile
                   </Typography>
                 </MenuItem>

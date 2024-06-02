@@ -19,17 +19,17 @@ const defaultMenus = [
     children: [
       {
         title: 'Edit Profile',
-        path: `${role}/profile`,
+        path: `profile`,
         icon: PersonIcon,
       },
       {
-        title: 'My Flat Posts',
-        path: `${role}/profile/flat-posts`,
+        title: 'Manage Flat Posts',
+        path: `${role}/profile/flatPosts`,
         icon: PostAddIcon,
       },
       {
         title: 'Flat Requests',
-        path: `${role}/profile/flat-requests`,
+        path: `${role}/profile/flatRequests`,
         icon: RequestPageIcon,
       },
       {

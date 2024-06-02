@@ -12,34 +12,31 @@ import AutoFileUploader from "@/components/Forms/AutoFileUploader";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import ProfileUpdateModal from "./components/ProfileUpdateModal";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import ProfileInformation from './components/ProfileInformation'; // Corrected import
-
+import ProfileInformation from './components/ProfileInformation'; 
 const Profile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data, isLoading } = useGetMYProfileQuery(undefined);
+  const { data, isLoading } = useGetMYProfileQuery({});
   const [updateMYProfile, { isLoading: updating }] =
     useUpdateMYProfileMutation();
 
   const fileUploadHandler = (file: File) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("data", JSON.stringify({}));
+    // const formData = new FormData();
+    // formData.append("file", file);
+    // formData.append("data", JSON.stringify({}));
 
-    updateMYProfile(formData);
+    // updateMYProfile(formData);
   };
 
   if (isLoading) {
-    return <p>Loading...</p>; // Corrected return statement
+    return <p>Loading...</p>; 
   }
 
   return (
-    <>
-      <ProfileUpdateModal
-        open={isModalOpen}
-        setOpen={setIsModalOpen}
-        id={data?.id}
-      />
+    
+    <Box>
+    
+    <ProfileUpdateModal open={isModalOpen} setOpen={setIsModalOpen} id={data?.id} user={data} updateUser={updateMYProfile} />
       <Container sx={{ mt: 4 }}>
         <Grid container spacing={4}>
           <Grid xs={12} md={4}>
@@ -80,12 +77,13 @@ const Profile = () => {
               Edit Profile
             </Button>
           </Grid>
-          <Grid xs={12} md={8}>
+           <Grid xs={12} md={8}>
             <ProfileInformation data={data} />
           </Grid>
         </Grid>
       </Container>
-    </>
+
+    </Box>
   );
 };
 

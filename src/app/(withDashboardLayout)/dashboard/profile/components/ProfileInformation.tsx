@@ -28,7 +28,7 @@ const profileInformation = ({ data }: any) => {
           <Typography color="secondary" variant="caption">
             Name
           </Typography>
-          <Typography>{data?.name}</Typography>
+          <Typography>{data?.username}</Typography>
         </StyledInformationBox>
         <StyledInformationBox>
           <Typography color="secondary" variant="caption">

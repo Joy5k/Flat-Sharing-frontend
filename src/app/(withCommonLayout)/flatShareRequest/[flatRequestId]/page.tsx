@@ -1,26 +1,21 @@
-"use client";
-import React, {useState } from 'react';
-import { Box, Typography, TextField, FormControl,InputLabel, Select, MenuItem,Button, Grid, Checkbox, FormControlLabel } from '@mui/material';
+"use client"
+import React, { useState } from 'react';
+import { Box, Typography, TextField, FormControl, InputLabel, Select, MenuItem, Button, Grid, Checkbox, FormControlLabel, CircularProgress } from '@mui/material';
 import { useGetSingleFlatQuery } from "@/redux/api/flatApi";
 import { useGetSingleUserQuery } from "@/redux/api/userApi";
 import { useFlatRequestPostMutation } from "@/redux/api/flatRequest";
 import { useRouter } from 'next/navigation';
-import CircularProgress from '@mui/material/CircularProgress';
 
 const FlatRequestPage = ({ params }: any) => {
-  const router=useRouter()
-  const { data: userData, isLoading:userLoading } = useGetSingleUserQuery({});
-  const [additionalInfo, setAdditionalInfo] = useState<string>('');
+  const router = useRouter();
+  const { data: userData, isLoading: userLoading } = useGetSingleUserQuery({});
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
-  const { data:flatData, isLoading:flatLoading, error } = useGetSingleFlatQuery(params.flatRequestId);
-const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutation()
+  const { data: flatData, isLoading: flatLoading, error } = useGetSingleFlatQuery(params.flatRequestId);
+  const [flatRequestPost, { isLoading: flatRequestLoading }] = useFlatRequestPostMutation();
 
   const handlePostFlatRequest = async () => {
-    const res = await flatRequestPost(params.flatRequestId)
-    console.log({ res })
-    // if (res.data.success) {
-     
-    // }
+    const res = await flatRequestPost(params.flatRequestId);
+    console.log({ res });
   };
 
   if (userLoading || flatLoading) {
@@ -40,10 +35,8 @@ const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutatio
       </Typography>
     );
   }
-  
 
   const amenities = flatData?.amenities || [];
-
 
   return (
     <Box sx={{ maxWidth: "1000px", width: "100%", margin: "100px auto" }}>
@@ -51,7 +44,7 @@ const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutatio
         Flat Share Request Form
       </Typography>
       <Grid container spacing={4}>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <TextField
             label="Your Name"
             value={userData?.username || ''}
@@ -60,7 +53,7 @@ const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutatio
             disabled
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <TextField
             label="Your Email"
             value={userData?.email || ''}
@@ -69,8 +62,7 @@ const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutatio
             disabled
           />
         </Grid>
-        
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <TextField
             label="Your Phone"
             value={userData?.phone || '+088**********'}
@@ -79,42 +71,42 @@ const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutatio
             disabled
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <TextField
             label="Flat Location"
-            value={flatData?.location || 'Dhaka,Bangladesh'}
+            value={flatData?.location || 'Dhaka, Bangladesh'}
             variant="outlined"
             fullWidth
             disabled
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <TextField
-            label="Rent Ammount"
+            label="Rent Amount"
             value={flatData?.rentAmount || '$'}
             variant="outlined"
             fullWidth
             disabled
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <TextField
-            label="Bed Rooms"
-            value={flatData?.bedrooms||"1"}
+            label="Bedrooms"
+            value={flatData?.bedrooms || "1"}
             variant="outlined"
-            disabled
             fullWidth
+            disabled
           />
         </Grid>
-        
-        <Grid item xs={6}>
-        <FormControl fullWidth>
-  <InputLabel disabled>{amenities[0]}</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    label="Amenities"
-  >
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel disabled>Amenities</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Amenities"
+              disabled
+            >
               {amenities.map((amenity: string) => (
                 <MenuItem key={amenity} value={amenity} disabled>
                   {amenity}
@@ -123,15 +115,14 @@ const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutatio
             </Select>
           </FormControl>
         </Grid>
-
         <Grid item xs={12}>
           <TextField
             label="Flat Details"
-            value={flatData?.description||"Flat Description"}
+            value={flatData?.description || "Flat Description"}
             variant="outlined"
-            disabled
             multiline
             fullWidth
+            disabled
           />
         </Grid>
         <Grid item xs={12}>
@@ -141,10 +132,8 @@ const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutatio
           />
         </Grid>
         <Grid item xs={12}>
-          <Button onClick={handlePostFlatRequest}  fullWidth={true} variant="contained" color="primary" disabled={!termsAccepted||userLoading}>
-            
-            {flatRequestLoading ? <CircularProgress  color="secondary" />:
-                       <Typography component="p" color="white"> Submit Flat Request</Typography>}
+          <Button onClick={handlePostFlatRequest} fullWidth variant="contained" color="primary" disabled={!termsAccepted || userLoading}>
+            {flatRequestLoading ? <CircularProgress color="secondary" /> : <Typography component="p" color="white">Submit Flat Request</Typography>}
           </Button>
         </Grid>
       </Grid>
