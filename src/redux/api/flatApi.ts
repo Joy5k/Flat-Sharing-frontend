@@ -24,6 +24,15 @@ export const flatApi = baseApi.injectEndpoints({
          },
          providesTags: [tagTypes.flatPost],
       }),
+      getAllFlatPostsAdmin: build.query({
+         query: () => {
+            return {
+               url: "/flat/get-all-flats",
+               method: 'GET',
+            }
+         },
+         providesTags: [tagTypes.flatPost],
+      }),
     
     getSingleFlat: build.query({
        query: (flatId) => {
@@ -40,4 +49,4 @@ export const flatApi = baseApi.injectEndpoints({
    })
 })
 
-export const { useFlatPostMutation,useGetFlatPostsQuery,useGetSingleFlatQuery } = flatApi;
+export const { useFlatPostMutation,useGetAllFlatPostsAdminQuery,useGetFlatPostsQuery,useGetSingleFlatQuery } = flatApi;
