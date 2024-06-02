@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Stack, styled, Typography } from "@mui/material";
 
 const StyledInformationBox = styled(Box)(({ theme }) => ({
@@ -18,12 +20,7 @@ const profileInformation = ({ data }: any) => {
       </Typography>
 
       <Stack direction={{ xs: "column", md: "row" }} gap={2} flexWrap={"wrap"}>
-        <StyledInformationBox>
-          <Typography color="secondary" variant="caption">
-            Role
-          </Typography>
-          <Typography>{data?.role}</Typography>
-        </StyledInformationBox>
+       
         <StyledInformationBox>
           <Typography color="secondary" variant="caption">
             Name
@@ -36,19 +33,14 @@ const profileInformation = ({ data }: any) => {
           </Typography>
           <Typography>{data?.email}</Typography>
         </StyledInformationBox>
-      </Stack>
-
-      <Typography variant="h5" my={2} color={"primary.main"}>
-        Professional Information
-      </Typography>
-      <Stack direction={{ xs: "column", md: "row" }} flexWrap={"wrap"} gap={2}>
         <StyledInformationBox>
-          <Typography variant="caption" color="secondary">
-            Current Status
+          <Typography color="secondary" variant="caption">
+            Role
           </Typography>
-          <Typography>{data?.status}</Typography>
+          <Typography>{data?.role}</Typography>
         </StyledInformationBox>
       </Stack>
+
     </>
   );
 };

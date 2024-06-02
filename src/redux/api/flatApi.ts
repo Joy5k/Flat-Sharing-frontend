@@ -18,7 +18,7 @@ export const flatApi = baseApi.injectEndpoints({
       getFlatPosts: build.query({
          query: (args) => {
             return {
-               url: `/flat/get-all-flats?bedrooms=${args.bedrooms && args.bedrooms}&location=${args.searchTerm}&priceMin=${args.minPrice}&priceMax=${args.maxPrice}`,
+               url: `/flat/get-all-flats?bedrooms=${args.bedrooms ? args.bedrooms :""}&location=${args.searchTerm ?args.searchTerm:"" }&priceMin=${args.priceMin ?args.priceMin:""}&priceMax=${args.priceMax ? args.priceMax:""}`,
                method: 'GET',
             }
          },

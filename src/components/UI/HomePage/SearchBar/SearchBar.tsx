@@ -20,17 +20,17 @@ const SearchField: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [bedrooms, setBedroomNumber] = useState<number|''>('');
 
-  const [minPrice, setMinPrice] = React.useState<number>(0);
-  const [maxPrice, setMaxPrice] = React.useState<number>(1000000);
+  const [priceMin, setPriceMin] = useState<number>(0);
+  const [priceMax, setPriceMax] = useState<number>(10000);
   
-  const searchData={minPrice,maxPrice,bedrooms,searchTerm}
-
-
+  const searchData={priceMin,priceMax,bedrooms,searchTerm}
+console.log(searchData,"searech bar ")
 // set min price and max price
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
-      setMinPrice(newValue[0]);
-      setMaxPrice(newValue[1]);
+      console.log(newValue[0],newValue[1],'getting price')
+      setPriceMin(newValue[0]);
+      setPriceMax(newValue[1]);
     }
   };
 
@@ -86,8 +86,10 @@ const SearchField: React.FC = () => {
         <Typography my={2} ml={2}>Choose Price Range</Typography>
         <Slider
           getAriaLabel={() => 'Price range'}
-          value={[minPrice, maxPrice]}
+          value={[priceMin, priceMax]}
           onChange={handleChange}
+          min={0}
+          max={10000}
           valueLabelDisplay="auto"
         />
       </Box>

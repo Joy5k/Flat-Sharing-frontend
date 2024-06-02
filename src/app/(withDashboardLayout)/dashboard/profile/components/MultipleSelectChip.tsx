@@ -1,3 +1,5 @@
+"use client"
+
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import FormControl from '@mui/material/FormControl';

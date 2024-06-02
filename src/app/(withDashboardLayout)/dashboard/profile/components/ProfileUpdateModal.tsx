@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import PHFullScreenModal from '@/components/Shared/SPModal/SPFullScreenModal';
 import PHForm from '@/components/Forms/SPForm';
@@ -6,6 +7,8 @@ import SPInput from '@/components/Forms/SPInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
+import { logoutUser } from "@/services/actions/logoutUser";
+import { useRouter } from "next/navigation";
 
 type TProps = {
    open: boolean;
@@ -22,6 +25,7 @@ const validationSchema = z.object({
 
 const ProfileUpdateModal = ({ open, setOpen, id, user, updateUser }: TProps) => {
    const [updating, setUpdating] = useState(false);
+   const router = useRouter();
 
    const submitHandler = async (values: any) => {
       setUpdating(true);
@@ -34,6 +38,7 @@ const ProfileUpdateModal = ({ open, setOpen, id, user, updateUser }: TProps) => 
     const res=await  updateUser(payload);
    if(res.data.id){
       toast.success("Profile Updated");
+      logoutUser(router);
    }
    };
 

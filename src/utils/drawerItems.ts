@@ -24,12 +24,12 @@ const defaultMenus = [
       },
       {
         title: 'Manage Flat Posts',
-        path: `${role}/profile/flatPosts`,
+        path: `profile/flatPosts`,
         icon: PostAddIcon,
       },
       {
         title: 'Flat Requests',
-        path: `${role}/profile/flatRequests`,
+        path: `profile/flatRequests`,
         icon: RequestPageIcon,
       },
       {

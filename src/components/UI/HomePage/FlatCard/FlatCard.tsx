@@ -22,7 +22,7 @@ import Link from "next/link";
 export default function FlatCard({ searchData }: any) {
 
     const { data, isLoading } = useGetFlatPostsQuery(searchData)
-
+console.log(searchData,"search Data in cart",data)
   return (
    <Box sx={{margin:"100px 0 0 0"}}>
     {isLoading ? <Typography color="text.secondary">
