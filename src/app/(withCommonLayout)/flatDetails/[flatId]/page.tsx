@@ -11,7 +11,6 @@ import Link from "next/link";
 const FlatDetailsPage = ({ params }: any) => {
   const { data, isLoading, error } = useGetSingleFlatQuery(params.flatId);
   const [currentIndex, setCurrentIndex] = useState(0);
-console.log(data?.photos,"The photos")
   if (isLoading) {
     return <Typography variant="body1" sx={{
       height:"100vh",

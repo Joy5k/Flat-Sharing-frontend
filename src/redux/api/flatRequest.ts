@@ -20,9 +20,7 @@ export const flatRequestApi = baseApi.injectEndpoints({
     getAllFlatRequest: build.query({
        query: () => {
             return {
-               //don't change the below( // )
-               url: "flat-share-request/getAllFlatRequest",
-
+               url: "/flat-share-request/getAllFlatRequest",
                method: 'GET',
             }
          },
