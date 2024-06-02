@@ -12,7 +12,7 @@ export const userLogin = async (data: FieldValues) => {
         },
         body: JSON.stringify(data),
         credentials: 'include',
-        // cache: "no-store",
+        cache: "no-store",
       }
     );
 
@@ -24,7 +24,7 @@ export const userLogin = async (data: FieldValues) => {
      const { accessToken, needPasswordChange } = userInfo.data;
      
      if (accessToken) {
-       console.log(accessToken,"This is Access Token")
+       console.log(accessToken,"This is Access Token in user login")
       setAccessToken(userInfo.data.accessToken, {
          redirect: '/dashboard',
          needPasswordChange,
@@ -33,6 +33,6 @@ export const userLogin = async (data: FieldValues) => {
     return userInfo;
   } catch (error:any) {
     console.error('Login error:', error);
-    return { error: error.message }; // Return the error message
+    return { error: error.message }; 
   }
 };

@@ -3,15 +3,24 @@ import React, {useState } from 'react';
 import { Box, Typography, TextField, FormControl,InputLabel, Select, MenuItem,Button, Grid, Checkbox, FormControlLabel } from '@mui/material';
 import { useGetSingleFlatQuery } from "@/redux/api/flatApi";
 import { useGetSingleUserQuery } from "@/redux/api/userApi";
+import { useFlatRequestPostMutation } from "@/redux/api/flatRequest";
+import { useRouter } from 'next/navigation';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const FlatRequestPage = ({ params }: any) => {
+  const router=useRouter()
   const { data: userData, isLoading:userLoading } = useGetSingleUserQuery({});
   const [additionalInfo, setAdditionalInfo] = useState<string>('');
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
   const { data:flatData, isLoading:flatLoading, error } = useGetSingleFlatQuery(params.flatRequestId);
-console.log({flatData},params)
-  const handlePostFlatRequest = async () => {
+const [flatRequestPost,{isLoading:flatRequestLoading}]=useFlatRequestPostMutation()
 
+  const handlePostFlatRequest = async () => {
+    const res = await flatRequestPost(params.flatRequestId)
+    console.log({ res })
+    // if (res.data.success) {
+     
+    // }
   };
 
   if (userLoading || flatLoading) {
@@ -132,8 +141,10 @@ console.log({flatData},params)
           />
         </Grid>
         <Grid item xs={12}>
-          <Button onClick={handlePostFlatRequest} variant="contained" color="primary" disabled={!termsAccepted||userLoading}>
-            Submit Flat Request
+          <Button onClick={handlePostFlatRequest}  fullWidth={true} variant="contained" color="primary" disabled={!termsAccepted||userLoading}>
+            
+            {flatRequestLoading ? <CircularProgress  color="secondary" />:
+                       <Typography component="p" color="white"> Submit Flat Request</Typography>}
           </Button>
         </Grid>
       </Grid>

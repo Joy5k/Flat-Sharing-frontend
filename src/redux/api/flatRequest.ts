@@ -5,10 +5,11 @@ export const flatRequestApi = baseApi.injectEndpoints({
    endpoints: (build) => ({
       flatRequestPost: build.mutation({
          query: (data) => {
+            console.log(data,'get the flatId')
             return {
                url: '/flat-share-request/create',
                method: 'POST',
-               data,
+               data:{flatId:data},
                contentType: 'application/json',
             };
          },

@@ -10,13 +10,15 @@ const commonPrivateRoutes = [
    '/dashboard',
    '/dashboard/change-password',
    '/doctors',
-   '/flatPost'
+   '/flatPost',
+   '/flatDetails',
+   '/flatShareRequest'
 
 ];
 const roleBasedPrivateRoutes = {
-   USER: [/^\/dashboard\/user/, /^\/flatDetails\/[a-z0-9-]+/],
-   ADMIN: [/^\/dashboard\/admin/],
-   SUPER_ADMIN: [/^\/dashboard\/super-admin/],
+   USER: [/^\/dashboard\/user/, /^\/flatDetails\/[a-z0-9-]+/,/^\/flatShareRequest\/[a-z0-9-]+/],
+   ADMIN: [/^\/dashboard\/admin/,/^\/flatDetails\/[a-z0-9-]+/,/^\/flatShareRequest\/[a-z0-9-]+/],
+   SUPER_ADMIN: [/^\/dashboard\/super-admin/,/^\/flatDetails\/[a-z0-9-]+/,/^\/flatShareRequest\/[a-z0-9-]+/],
 };
 
 export function middleware(request: NextRequest) {
