@@ -10,18 +10,14 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useGetAllFlatPostsAdminQuery, useUpdateFlatByAdminMutation,useDeleteFlatByAdminMutation, useGetAllMyFlatsQuery } from "@/redux/api/flatApi";
-import DetailsIcon from "@mui/icons-material/Details";
-import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FlatUpdateModal from "../components/FlatUpdateModal";
 import { getUserInfo } from "@/services/auth.services";
-import { UserRole } from '@/types';
+import { toast } from "sonner";
 
-export default function FlatCard(flatId: string) {
+export default function FlatCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]);
   const [defaultFlatData,setDefaultFlatData] =useState()
@@ -47,7 +43,9 @@ export default function FlatCard(flatId: string) {
   }
   const handleFlatDelete=async(flatId:string)=>{
     const res=await deleteFlat(flatId)
-   console.log(res)
+    if (res?.data?.count) {
+        toast.success("Flat Deleted successfully");
+    }
   
   }
   return (

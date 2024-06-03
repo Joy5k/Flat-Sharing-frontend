@@ -22,13 +22,22 @@ import Link from "next/link";
 export default function FlatCard({ searchData }: any) {
 
     const { data, isLoading } = useGetFlatPostsQuery(searchData)
+    if (isLoading) {
+      return <Typography variant="body1" sx={{
+        height:"100vh",
+        color:"primary.main",
+        fontWeight:"600",
+        fontSize:"30px",
+        textAlign:"center",
+        margin:"50px auto"
+        
+      }}>Loading ...</Typography>;
+    }
   return (
    <Box sx={{margin:"100px 0 0 0"}}>
-    {isLoading ? <Typography color="text.secondary">
-         Loading...
-         </Typography>: 
+    
  <Grid container spacing={2}>
- {data.map((flat:any) => (
+ {data?.map((flat:any) => (
    <Grid item key={flat.id} xs={12} sm={6} md={4}>
      <Card sx={{ width: 345, height:440, marginBottom: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',}}>
        <CardHeader
@@ -59,7 +68,7 @@ image={flat.photos[0] ? flat.photos[0].imageUrl : "https://images.pexels.com/pho
      </Card>
    </Grid>
  ))}
-</Grid>}
+</Grid>
    </Box>
   );
 }

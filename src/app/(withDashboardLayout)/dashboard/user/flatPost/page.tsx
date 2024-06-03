@@ -17,6 +17,7 @@ import SPForm from "@/components/Forms/SPForm";
 import { FieldValues } from "react-hook-form";
 import uploadImage from "@/components/ImageUploader/ImageUploader";
 import { useFlatPostMutation } from "@/redux/api/flatApi";
+import { useRouter } from "next/navigation";
 
 const createFlatSchema = z.object({
   location: z.string({
@@ -57,30 +58,33 @@ export const defaultFlatValues = {
 };
 
 const PostFlat = () => {
+  const router = useRouter();
   const [error, setError] = useState<string>("");
   const [amenities, setAmenities] = useState<string[]>([]);
-  const [photos, setPhotos] = useState<{imageUrl: string }[]>([]);
-    const [postFlat,{isLoading}]=useFlatPostMutation()
-  const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [photos, setPhotos] = useState<{ imageUrl: string }[]>([]);
+  const [postFlat, { isLoading }] = useFlatPostMutation();
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const selectedFiles = event.target.files;
     if (!selectedFiles) return;
-  
+
     const uploadedPhotos: { imageUrl: string }[] = [];
     for (let i = 0; i < selectedFiles.length; i++) {
       const file = selectedFiles[i];
       const response = await uploadImage(file);
       if (response) {
-        uploadedPhotos.push({imageUrl: response.imageUrl});
+        uploadedPhotos.push({ imageUrl: response.imageUrl });
       }
     }
     setPhotos(uploadedPhotos);
   };
-  
-  const handleFlatPost = async(values: FieldValues) => {
-   const res=await postFlat({ ...values, amenities, photos })
-   if (res?.data?.id) {
-    router.push("/dashboard/profile/flatPosts")
-  }
+
+  const handleFlatPost = async (values: FieldValues) => {
+    const res = await postFlat({ ...values, amenities, photos });
+    if (res?.data?.id) {
+      router.push("/dashboard/profile/flatPosts");
+    }
   };
 
   return (
@@ -106,29 +110,27 @@ const PostFlat = () => {
             </Grid>
 
             <Grid item md={6}>
-             
-            <TextField
-      variant="outlined"
-      label="Rent Amount"
+              <TextField
+                variant="outlined"
+                label="Rent Amount"
                 type="number"
                 fullWidth={true}
                 name="rentAmount"
                 required
-      placeholder="Enter Rent Amount"
-      required
-    />
+                placeholder="Enter Rent Amount"
+              />
             </Grid>
 
             <Grid item md={6}>
-            <TextField
-      variant="outlined"
-      label="Bed Rooms"
-      type="number"
-      fullWidth
-      name="bedrooms"
-      placeholder="Enter number of bedrooms"
-      required
-    />
+              <TextField
+                variant="outlined"
+                label="Bed Rooms"
+                type="number"
+                fullWidth
+                name="bedrooms"
+                placeholder="Enter number of bedrooms"
+                required
+              />
             </Grid>
 
             <Grid item md={6}>
@@ -172,10 +174,13 @@ const PostFlat = () => {
             fullWidth={true}
             type="submit"
           >
-            {isLoading ? <CircularProgress color={"warning"} /> : <Typography component="p" color="white">
-              Share Flat
-            </Typography>}
-            
+            {isLoading ? (
+              <CircularProgress color={"warning"} />
+            ) : (
+              <Typography component="p" color="white">
+                Share Flat
+              </Typography>
+            )}
           </Button>
         </SPForm>
       </Box>

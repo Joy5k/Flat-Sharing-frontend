@@ -62,7 +62,9 @@ const FlatUpdateModal = ({
   const [updating, setUpdating] = useState(false);
   const [amenities,setAmenities]=useState<string[]>()
 
-  const submitHandler = async (values: any) => {
+  const handleFlatEdit = async (values: any) => {
+    console.log("Form values:", values);
+
    const bedroomsValues=Number(values.bedrooms)
    const rentAmountValues=Number(values.rentAmount)
     setUpdating(true);
@@ -77,13 +79,20 @@ const FlatUpdateModal = ({
     
      setOpen(false);
      const flatUpdateData:any = {
-        flatId:flatId,
+        flatId:flat.id,
         flatData:payload
      }
-     console.log(flatUpdateData,"the flat updated data");
-    const res = await updateFlat(flatUpdateData);
-    if (res.data.id) {
-      toast.success("Flat Updated");
+    
+     try {
+      const res = await updateFlat(flatUpdateData);
+      if (res.data.id) {
+        toast.success("Flat Updated");
+      }
+    } catch (error) {
+      console.error("Error updating flat:", error);
+      toast.error("Failed to update flat");
+    } finally {
+      setUpdating(false);
     }
     setUpdating(false);
   };
@@ -101,7 +110,7 @@ const FlatUpdateModal = ({
         }}
       >
         <SPForm
-          onSubmit={submitHandler}
+          onSubmit={handleFlatEdit}
           defaultValues={flat}
           resolver={zodResolver(validationSchema)}
         >
