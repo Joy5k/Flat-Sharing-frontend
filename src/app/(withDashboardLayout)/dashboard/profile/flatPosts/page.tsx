@@ -12,19 +12,34 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useGetAllFlatPostsAdminQuery, useUpdateFlatByAdminMutation,useDeleteFlatByAdminMutation } from "@/redux/api/flatApi";
+import { useGetAllFlatPostsAdminQuery, useUpdateFlatByAdminMutation,useDeleteFlatByAdminMutation, useGetAllMyFlatsQuery } from "@/redux/api/flatApi";
 import DetailsIcon from "@mui/icons-material/Details";
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FlatUpdateModal from "../components/FlatUpdateModal";
+import { getUserInfo } from "@/services/auth.services";
+import { UserRole } from '@/types';
 
 export default function FlatCard(flatId: string) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [data, setData] = useState([]);
   const [defaultFlatData,setDefaultFlatData] =useState()
-  const { data, isLoading } = useGetAllFlatPostsAdminQuery({});
+  const { data:adminFlats, isLoading } = useGetAllFlatPostsAdminQuery({});
+  const {data:userFlats}=useGetAllMyFlatsQuery({})
   const [updateFlat, { isLoading: updating }] = useUpdateFlatByAdminMutation();
   const [deleteFlat, { isLoading: deleting }] = useDeleteFlatByAdminMutation  ();
+  const userRole = getUserInfo()
+  useEffect(() => {
+    if (userRole?.role === 'ADMIN') {
+      setData(adminFlats)
+    }
+    if (userRole?.role === 'USER') {
+      setData(userFlats)
+    }
+  },[adminFlats, userFlats, userRole])
+
+
 
   const handleModal = (data:any) => {
     setDefaultFlatData(data)
@@ -50,7 +65,7 @@ export default function FlatCard(flatId: string) {
           <Typography color="text.secondary">Loading...</Typography>
         ) : (
           <Grid container spacing={2}>
-            {data.map((flat: any) => (
+            {data?.map((flat: any) => (
               <Grid item key={flat.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{

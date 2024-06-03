@@ -78,7 +78,9 @@ const PostFlat = () => {
   
   const handleFlatPost = async(values: FieldValues) => {
    const res=await postFlat({ ...values, amenities, photos })
-    console.log(res,"this is backend response");
+   if (res?.data?.id) {
+    router.push("/dashboard/profile/flatPosts")
+  }
   };
 
   return (
@@ -104,21 +106,29 @@ const PostFlat = () => {
             </Grid>
 
             <Grid item md={6}>
-              <SPInput
-                label="Rent Amount"
+             
+            <TextField
+      variant="outlined"
+      label="Rent Amount"
                 type="number"
                 fullWidth={true}
                 name="rentAmount"
-              />
+                required
+      placeholder="Enter Rent Amount"
+      required
+    />
             </Grid>
 
             <Grid item md={6}>
-              <SPInput
-                label="Bed Rooms"
-                type="number"
-                fullWidth={true}
-                name="bedrooms"
-              />
+            <TextField
+      variant="outlined"
+      label="Bed Rooms"
+      type="number"
+      fullWidth
+      name="bedrooms"
+      placeholder="Enter number of bedrooms"
+      required
+    />
             </Grid>
 
             <Grid item md={6}>

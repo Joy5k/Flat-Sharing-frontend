@@ -37,6 +37,15 @@ export const flatApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.flatPost],
     }),
+    getAllMyFlats: build.query({
+      query: () => {
+        return {
+          url: "/flat/get-my-flats",
+          method: "GET",
+        };
+      },
+      providesTags: [tagTypes.flatPost],
+    }),
 
     getSingleFlat: build.query({
       query: (flatId) => {
@@ -49,6 +58,7 @@ export const flatApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.flatPost],
     }),
+
     updateFlatByAdmin: build.mutation({
        query: (data) => {
           console.log(data,"redux api flat updated data");
@@ -81,4 +91,5 @@ export const {
    useGetSingleFlatQuery,
   useUpdateFlatByAdminMutation,
   useDeleteFlatByAdminMutation,
+  useGetAllMyFlatsQuery
 } = flatApi;

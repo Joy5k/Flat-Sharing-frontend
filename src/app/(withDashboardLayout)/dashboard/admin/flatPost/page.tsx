@@ -18,6 +18,7 @@ import { FieldValues } from "react-hook-form";
 import uploadImage from "@/components/ImageUploader/ImageUploader";
 import { useFlatPostMutation } from "@/redux/api/flatApi";
 import { useRouter } from "next/navigation";
+import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
 
 const createFlatSchema = z.object({
   location: z.string({
@@ -79,10 +80,11 @@ const PostFlat = () => {
   };
   
   const handleFlatPost = async(values: FieldValues) => {
+     values.rentAmount=Number(values?.rentAmount)
+    values.bedrooms=Number(values?.bedrooms)  
    const res=await postFlat({ ...values, amenities, photos })
     if (res?.data?.id) {
      router.push("/dashboard/profile/flatPosts")
-    console.log(res,"this is backend response");
    }
   };
 
@@ -97,7 +99,7 @@ const PostFlat = () => {
         >
           <Grid container spacing={2} my={1}>
             <Grid item md={6}>
-              <SPInput label="Location" fullWidth={true} name="location" />
+              <SPInput label="Location" fullWidth={true} name="location" required/>
             </Grid>
 
             <Grid item md={6}>
@@ -105,31 +107,42 @@ const PostFlat = () => {
                 label="Description"
                 fullWidth={true}
                 name="description"
+                required
               />
             </Grid>
 
             <Grid item md={6}>
-              <SPInput
-                label="Rent Amount"
+            
+              <TextField
+      variant="outlined"
+      label="Rent Amount"
                 type="number"
                 fullWidth={true}
                 name="rentAmount"
-              />
+                required
+      placeholder="Enter Rent Amount"
+      required
+    />
             </Grid>
 
             <Grid item md={6}>
-              <SPInput
-                label="Bed Rooms"
-                type="number"
-                fullWidth={true}
-                name="bedrooms"
-              />
+        
+               <TextField
+      variant="outlined"
+      label="Bed Rooms"
+      type="number"
+      fullWidth
+      name="bedrooms"
+      placeholder="Enter number of bedrooms"
+      required
+    />
             </Grid>
 
             <Grid item md={6}>
               <Autocomplete
                 multiple
                 freeSolo
+                required
                 options={[]}
                 value={amenities}
                 onChange={(event, newValue) => {
@@ -143,6 +156,7 @@ const PostFlat = () => {
                     placeholder="Enter amenities"
                   />
                 )}
+
               />
             </Grid>
 
@@ -151,6 +165,7 @@ const PostFlat = () => {
                 type="file"
                 inputProps={{ multiple: true }}
                 onChange={handleImageChange}
+                required
               />
             </Grid>
 
