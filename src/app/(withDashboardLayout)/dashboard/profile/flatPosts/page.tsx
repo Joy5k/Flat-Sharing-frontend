@@ -53,7 +53,6 @@ export default function FlatCard() {
       <FlatUpdateModal
         open={isModalOpen}
         setOpen={setIsModalOpen}
-        flatId={flatId}
         flat={defaultFlatData}
         updateFlat={updateFlat}
       />
@@ -76,7 +75,7 @@ export default function FlatCard() {
                   }}
                 >
                   <CardHeader
-                    title={flat.location}
+                    title={flat?.location}
                     subheader={`Rent: ${flat.rentAmount} | Bedrooms: ${flat.bedrooms}`}
                   />
                   <CardMedia
@@ -87,7 +86,7 @@ export default function FlatCard() {
                         ? flat.photos[0].imageUrl
                         : "https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg"
                     }
-                    alt={flat.location}
+                    alt={flat?.location}
                     sx={{ width: 345, height: 200 }}
                   />
 

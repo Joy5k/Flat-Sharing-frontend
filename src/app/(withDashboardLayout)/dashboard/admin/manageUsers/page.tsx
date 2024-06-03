@@ -56,7 +56,6 @@ console.log(res,"check the change user role response")
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-console.log(users,'the data')
   useEffect(() => {
     const updateData = data?.map((user: any, index: number) => {
       return {
@@ -68,7 +67,7 @@ console.log(users,'the data')
         role: user.role,
       };
     });
-    setAllUsers(updateData);
+    setAllUsers(updateData || []);
   }, [data]);
 
   const columns: GridColDef[] = [

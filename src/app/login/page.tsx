@@ -14,7 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
-export const validationSchema = z.object({
+ const validationSchema = z.object({
    email: z.string().email('Please enter a valid email address!'),
    password: z.string().min(6, 'Must be at least 6 characters'),
 });
@@ -32,6 +32,7 @@ const [loading,setLoading]=useState(false)
             storeUserInfo({ accessToken: res?.data?.accessToken });
             setLoading(false)
          } else {
+            setLoading(false)
             setError(res?.message || 'An error occurred while logging in.');
          }
       } catch (err: any) {

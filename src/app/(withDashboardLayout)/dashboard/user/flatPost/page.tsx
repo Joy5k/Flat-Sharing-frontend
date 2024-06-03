@@ -48,7 +48,9 @@ const createFlatSchema = z.object({
     .optional(),
 });
 
-export const defaultFlatValues = {
+type FlatFormValues = z.infer<typeof createFlatSchema>;
+
+ const defaultFlatValues: FlatFormValues = {
   location: "",
   description: "",
   rentAmount: 1000,

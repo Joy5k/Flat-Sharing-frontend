@@ -7,7 +7,7 @@ const uploadImage = async (img: File) => {
     formData.append('image', img);
 
     // Log the form data to ensure the file is appended correctly
-    for (let pair of formData.entries()) {
+    for (let pair of Array.from(formData.entries())) {
       console.log(`${pair[0]}: ${pair[1]}`);
     }
 

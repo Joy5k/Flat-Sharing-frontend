@@ -26,19 +26,19 @@ import SPInput from "@/components/Forms/SPInput";
 import CircularProgress from '@mui/material/CircularProgress';
 
 
-export const userValidationSchema = z.object({
+ const userValidationSchema = z.object({
   username: z.string().min(1, "Please enter your name!"),
   email: z.string().email("Please enter a valid email address!"),
  
 });
 
-export const validationSchema = z.object({
+ const validationSchema = z.object({
   password: z.string().min(6, "Must be at least 6 characters"),
   confirmPassword: z.string().min(6, "Must be at least 6 characters"),
   user: userValidationSchema,
 });
 
-export const defaultValues = {
+ const defaultValues = {
   password: "",
   user: {
     username: "",

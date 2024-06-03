@@ -1,5 +1,4 @@
 "use client";
-"use client"
 
 import useUserInfo from "@/hooks/useUserInfo";
 import { logoutUser } from "@/services/actions/logoutUser";
@@ -25,8 +24,10 @@ const Navbar = () => {
   const isTrue = isLoggedIn()
   const router = useRouter();
 
-  useEffect(()=>{
-    setUserExists(isTrue)
+  useEffect(() => {
+    if (isTrue) {
+      return setUserExists(isTrue);
+    }
   },[isTrue])
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);

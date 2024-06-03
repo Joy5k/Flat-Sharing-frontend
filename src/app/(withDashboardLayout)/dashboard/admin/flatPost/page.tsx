@@ -49,7 +49,9 @@ const createFlatSchema = z.object({
     .optional(),
 });
 
-export const defaultFlatValues = {
+type FlatFormValues = z.infer<typeof createFlatSchema>;
+
+ const defaultFlatValues: FlatFormValues = {
   location: "",
   description: "",
   rentAmount: 1000,
@@ -81,7 +83,7 @@ const PostFlat = () => {
     setPhotos(uploadedPhotos);
   };
 
-  const handleFlatPost = async (values: FieldValues) => {
+  const handleFlatPost = async (values:FieldValues) => {
     values.rentAmount = Number(values?.rentAmount);
     values.bedrooms = Number(values?.bedrooms);
     const res = await postFlat({ ...values, amenities, photos });

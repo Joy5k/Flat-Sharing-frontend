@@ -3,67 +3,71 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-type Role = keyof typeof roleBasedPrivateRoutes;
+type Role = 'USER' | 'ADMIN' | 'SUPER_ADMIN';
 
 const AuthRoutes = ['/login', '/register'];
 const commonPrivateRoutes = [
-   '/dashboard',
-   '/dashboard/change-password',
-   '/doctors',
-   '/flatPost',
-   '/flatDetails',
-   '/flatShareRequest'
-
+    '/dashboard',
+    '/dashboard/change-password',
+    '/doctors',
+    '/flatPost',
+    '/flatDetails',
+    '/flatShareRequest'
 ];
-const roleBasedPrivateRoutes = {
-   USER: [/^\/dashboard\/user/, /^\/flatDetails\/[a-z0-9-]+/,/^\/flatShareRequest\/[a-z0-9-]+/],
-   ADMIN: [/^\/dashboard\/admin/,/^\/flatDetails\/[a-z0-9-]+/,/^\/flatShareRequest\/[a-z0-9-]+/],
-   SUPER_ADMIN: [/^\/dashboard\/super-admin/,/^\/flatDetails\/[a-z0-9-]+/,/^\/flatShareRequest\/[a-z0-9-]+/],
+
+const roleBasedPrivateRoutes: Record<Role, RegExp[]> = {
+    USER: [/^\/dashboard\/user/],
+    ADMIN: [/^\/dashboard\/admin/],
+    SUPER_ADMIN: [/^\/dashboard\/super-admin/],
 };
 
+interface DecodedData {
+    role?: Role;
+}
+
 export function middleware(request: NextRequest) {
-   const { pathname } = request.nextUrl;
+    const { pathname } = request.nextUrl;
 
-   const accessToken = cookies().get('accessToken')?.value;
+    const accessToken = cookies().get('accessToken')?.value;
 
-   if (!accessToken) {
-      if (AuthRoutes.includes(pathname)) {
-         return NextResponse.next();
-      } else {
-         return NextResponse.redirect(new URL('/login', request.url));
-      }
-   }
+    if (!accessToken) {
+        if (AuthRoutes.includes(pathname)) {
+            return NextResponse.next();
+        } else {
+            return NextResponse.redirect(new URL('/login', request.url));
+        }
+    }
 
-   if (
-      accessToken &&
-      (commonPrivateRoutes.includes(pathname) ||
-         commonPrivateRoutes.some((route) => pathname.startsWith(route)))
-   ) {
-      return NextResponse.next();
-   }
+    if (
+        accessToken &&
+        (commonPrivateRoutes.includes(pathname) ||
+            commonPrivateRoutes.some((route) => pathname.startsWith(route)))
+    ) {
+        return NextResponse.next();
+    }
 
-   let decodedData = null;
+    let decodedData: DecodedData = {};
 
-   if (accessToken) {
-      decodedData = jwtDecode(accessToken) as any;
-   }
+    if (accessToken) {
+        try {
+            decodedData = jwtDecode<DecodedData>(accessToken);
+        } catch (error) {
+            return NextResponse.redirect(new URL('/login', request.url));
+        }
+    }
 
-   const role = decodedData?.role;
+    const role = decodedData.role;
 
-   // if (role === 'ADMIN' && pathname.startsWith('/dashboard/admin')) {
-   //    return NextResponse.next();
-   // }
+    if (role && roleBasedPrivateRoutes[role]) {
+        const routes = roleBasedPrivateRoutes[role];
+        if (routes.some((route) => route.test(pathname))) {
+            return NextResponse.next();
+        }
+    }
 
-   if (role && roleBasedPrivateRoutes[role as Role]) {
-      const routes = roleBasedPrivateRoutes[role as Role];
-      if (routes.some((route) => pathname.match(route))) {
-         return NextResponse.next();
-      }
-   }
-
-   return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.redirect(new URL('/', request.url));
 }
 
 export const config = {
-   matcher: ['/login', '/register', '/dashboard/:page*', '/doctors/:page*'],
+    matcher: ['/login', '/register', '/dashboard/:path*','/flatPost','/flatPost/:path*', '/flatDetails/:path*','/flatShareRequest' ,'/flatShareRequest/:path*'],
 };

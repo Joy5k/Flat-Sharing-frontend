@@ -12,7 +12,7 @@ import { authApi, useResetPasswordMutation } from "@/redux/api/authApi";
 import { useEffect } from "react";
 import { authKey } from "@/contants/authkey";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { deleteCookies } from "@/services/actions/deleteCookies";
 
 const validationSchema = z.object({

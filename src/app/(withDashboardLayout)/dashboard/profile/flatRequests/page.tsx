@@ -11,15 +11,6 @@ import { useGetAllFlatRequestQuery} from "@/redux/api/flatRequest";
 import { Box, IconButton, Paper,Button, Typography } from '@mui/material';
 
 
-function createData(
-  location: string,
-  status: 'PENDING'|'APPROVED'|'REJECTED',
-
-) {
-  return { location, status };
-}
-
-
 export default function BasicTable() {
   const {data,isLoading}=useGetAllFlatRequestQuery({})
   if (isLoading) {

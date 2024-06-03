@@ -1,9 +1,9 @@
-"use server"
+"use server";
 
 export const registerUser = async (userData: any) => {
   try {
     const res = await fetch(
-      "http://localhost:5000/api/v1/user/create-user",
+      "https://spare-room-backend.vercel.app/api/v1/user/create-user",
       {
         method: "POST",
         headers: {

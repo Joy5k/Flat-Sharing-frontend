@@ -1,5 +1,5 @@
 {
-  "name": "ph-healthcare-frontend",
+  "name": "spare-room-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -46,6 +46,6 @@
     "eslint-plugin-mui-path-imports": "^0.0.15",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5.4.5"
   }
 }

@@ -23,7 +23,6 @@ type FlatUpdateData = {
 type TProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-   flatId: string;
   flat?:any;
   updateFlat: (payload: Partial<FlatSchema>) => Promise<any>;
 };
@@ -55,7 +54,6 @@ const validationSchema = z.object({
 const FlatUpdateModal = ({
   open,
   setOpen,
-   flatId,
    flat,
   updateFlat,
 }: TProps) => {
