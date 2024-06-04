@@ -37,6 +37,7 @@ export const removeUser = () => {
 };
 
 export const getNewAccessToken = async () => {
+  console.log(' in getNewAccessToken function')
   return await axiosInstance({
     url: "https://spare-room-backend.vercel.app/api/v1/auth/refresh-token",
     method: "POST",

@@ -1,6 +1,5 @@
 "use client";
 
-import useUserInfo from "@/hooks/useUserInfo";
 import { logoutUser } from "@/services/actions/logoutUser";
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
@@ -17,6 +16,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {  getUserInfo,isLoggedIn } from "@/services/auth.services";
+import { authKey } from '@/contants/authkey';
+import deleteCookies from '@/services/actions/deleteCookies'
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -34,7 +35,7 @@ const Navbar = () => {
   };
 
   const handleLogOut = () => {
-    logoutUser(router);
+    logoutUser(router)
   };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -120,7 +121,7 @@ const Navbar = () => {
                 </MenuItem>
 
                 <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" color="orange"  onSubmit={handleLogOut}>
+                <Typography textAlign="center" color="orange"  onClick={handleLogOut}>
                    <LogoutIcon/> Logout
                   </Typography>
                        </MenuItem>      
