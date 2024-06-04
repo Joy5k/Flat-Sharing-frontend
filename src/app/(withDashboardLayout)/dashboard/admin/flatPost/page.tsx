@@ -83,7 +83,6 @@ try {
       const response = await uploadImage(file);
       if (response) {
         uploadedPhotos.push({ imageUrl: response.imageUrl });
-        setImageLoading(false)
       } else {
         console.log(`Failed to upload file: ${file.name}`);
       }
@@ -94,11 +93,8 @@ try {
   console.error(error,"comes from flat post");
 }
 
-    
-
   };
   
-
   const handleFlatPost = async (values: FieldValues) => {
     values.rentAmount = Number(values?.rentAmount);
     values.bedrooms = Number(values?.bedrooms);

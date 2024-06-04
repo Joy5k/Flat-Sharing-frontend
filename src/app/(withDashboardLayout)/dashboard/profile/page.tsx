@@ -65,6 +65,7 @@ const Profile = () => {
                   icon={<CloudUploadIcon />}
                   onFileUpload={fileUploadHandler}
                   variant="text"
+                  disabled
                 />
               )}
             </Box>

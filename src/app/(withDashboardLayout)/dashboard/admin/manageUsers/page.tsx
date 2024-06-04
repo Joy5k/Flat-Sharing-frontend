@@ -77,7 +77,7 @@ const ManageUsers = () => {
 
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Change status",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -86,20 +86,21 @@ const ManageUsers = () => {
           onClick={() => handleStatusChange(row.id, row.status)}
           sx={{ background: "orange" }}
         >
-          {row.status === USER_STATUS.ACTIVE ? "Block" : "Activate"}
+          {row.status === USER_STATUS.ACTIVE ? "Block" : "Active"}
         </Button>
       ),
     },
     {
       field: "changeRole",
       headerName: "Change Role",
-      flex: 1,
+      flex: 2,
       headerAlign: "center",
       align: "center",
+      marginRight:"10px",
       renderCell: ({ row }: { row: { id: string; role: string } }) => (
         <Button
           onClick={() => handleRoleChange(row.id, row.role)}
-          sx={{ background: "orange" }}
+          sx={{ background: "secondary.light" ,marginRight:"5px"}}
         >
           {row.role === USER_ROLE.USER ? "Create Admin" : "Create User"}
         </Button>
