@@ -42,9 +42,8 @@ instance.interceptors.response.use(
    async function (error) {
       // Any status codes that falls outside the range of 2xx cause this function to trigger
       // Do something with response error
-      // console.log(error);
+
       const config = error.config;
-      // console.log(config);
       if (error?.response?.status === 500 && !config.sent) {
          config.sent = true;
          const response = await getNewAccessToken();

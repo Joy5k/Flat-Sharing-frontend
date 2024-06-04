@@ -61,7 +61,6 @@ export const flatApi = baseApi.injectEndpoints({
 
     updateFlatByAdmin: build.mutation({
        query: (data) => {
-          console.log(data,"redux api flat updated data");
         return {
           url: `/flat/updateFLat/${data.flatId}`,
           method: "PATCH",
@@ -73,7 +72,6 @@ export const flatApi = baseApi.injectEndpoints({
     }),
     deleteFlatByAdmin: build.mutation({
        query: (flatId) => {
-        console.log(flatId,"redux id")
         return {
           url: `/flat/deleteFlat/${flatId}`,
           method: "DELETE",

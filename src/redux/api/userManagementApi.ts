@@ -14,7 +14,6 @@ export const manageUserApi = baseApi.injectEndpoints({
       }),
       changeUserStatus: build.mutation({
          query: ({userId,status}) => {
-            console.log(userId,status,'redux api')
             return {
                url:`/user/${userId}/status`,
                method: 'PATCH',
@@ -26,7 +25,6 @@ export const manageUserApi = baseApi.injectEndpoints({
       }),
       changeUserRole: build.mutation({
          query: ({userId,role}) => {
-            console.log(userId,role,'redux api role change')
             return {
                url:`/user/${userId}/role`,
                method: 'PATCH',

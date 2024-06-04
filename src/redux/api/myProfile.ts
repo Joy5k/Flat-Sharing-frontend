@@ -14,7 +14,6 @@ export const profileAPi = baseApi.injectEndpoints({
       }),
       updateMYProfile: build.mutation({
          query: (data) => {
-            console.log(data,"from the redux")
             return {
                url: '/user/editProfile',
                method: 'PATCH',

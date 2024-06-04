@@ -53,7 +53,6 @@ const FlatUpdateModal = ({
   const [amenities,setAmenities]=useState<string[]>()
 
   const handleFlatEdit = async (values: any) => {
-    console.log("Form values:", values);
 
     setUpdating(true);
 

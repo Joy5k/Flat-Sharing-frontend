@@ -24,11 +24,9 @@ const SearchField: React.FC = () => {
   const [priceMax, setPriceMax] = useState<number>(10000);
   
   const searchData={priceMin,priceMax,bedrooms,searchTerm}
-console.log(searchData,"searech bar ")
 // set min price and max price
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (Array.isArray(newValue)) {
-      console.log(newValue[0],newValue[1],'getting price')
       setPriceMin(newValue[0]);
       setPriceMax(newValue[1]);
     }
