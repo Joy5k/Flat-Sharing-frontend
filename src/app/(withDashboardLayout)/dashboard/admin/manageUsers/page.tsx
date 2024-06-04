@@ -96,11 +96,10 @@ const ManageUsers = () => {
       flex: 2,
       headerAlign: "center",
       align: "center",
-      marginRight:"10px",
       renderCell: ({ row }: { row: { id: string; role: string } }) => (
         <Button
           onClick={() => handleRoleChange(row.id, row.role)}
-          sx={{ background: "secondary.light" ,marginRight:"5px"}}
+          sx={{ background: "secondary.light" }}
         >
           {row.role === USER_ROLE.USER ? "Create Admin" : "Create User"}
         </Button>

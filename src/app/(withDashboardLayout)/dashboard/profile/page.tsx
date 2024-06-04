@@ -20,13 +20,13 @@ const Profile = () => {
   const [updateMYProfile, { isLoading: updating }] =
     useUpdateMYProfileMutation();
 
-  const fileUploadHandler = (file: File) => {
+  // const fileUploadHandler = (file: File) => {
     // const formData = new FormData();
     // formData.append("file", file);
     // formData.append("data", JSON.stringify({}));
 
     // updateMYProfile(formData);
-  };
+  // };
 
   if (isLoading) {
     return <p>Loading...</p>; 
@@ -55,7 +55,7 @@ const Profile = () => {
                 alt="User Photo"
               />
             </Box>
-            <Box my={3}>
+            {/* <Box my={3}>
               {updating ? (
                 <p>Uploading...</p>
               ) : (
@@ -65,10 +65,9 @@ const Profile = () => {
                   icon={<CloudUploadIcon />}
                   onFileUpload={fileUploadHandler}
                   variant="text"
-                  disabled
                 />
               )}
-            </Box>
+            </Box> */}
 
             <Button
               fullWidth
