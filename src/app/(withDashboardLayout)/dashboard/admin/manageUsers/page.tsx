@@ -86,7 +86,7 @@ const ManageUsers = () => {
           onClick={() => handleStatusChange(row.id, row.status)}
           sx={{ background: "orange" }}
         >
-          {row.status === USER_STATUS.ACTIVE ? "Block User" : "Activate User"}
+          {row.status === USER_STATUS.ACTIVE ? "Block" : "Activate"}
         </Button>
       ),
     },

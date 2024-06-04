@@ -67,6 +67,7 @@ const PostFlat = () => {
   const [error, setError] = useState<string>("");
   const [amenities, setAmenities] = useState<string[]>([]);
   const [photos, setPhotos] = useState<{ imageUrl: string }[]>([]);
+  const [imageLoading,setImageLoading]=useState<boolean>(true)
   const [postFlat, { isLoading }] = useFlatPostMutation();
   const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
@@ -75,19 +76,25 @@ const PostFlat = () => {
       return;
     }
   
-
-
-    const uploadedPhotos: { imageUrl: string }[] = [];
+try {
+  const uploadedPhotos: { imageUrl: string }[] = [];
     for (let i = 0; i < selectedFiles.length; i++) {
       const file = selectedFiles[i];
       const response = await uploadImage(file);
       if (response) {
         uploadedPhotos.push({ imageUrl: response.imageUrl });
+        setImageLoading(false)
       } else {
         console.log(`Failed to upload file: ${file.name}`);
       }
     }
-    setPhotos(uploadedPhotos);
+  setPhotos(uploadedPhotos);
+  setImageLoading(false)
+} catch (error) {
+  console.error(error,"comes from flat post");
+}
+
+    
 
   };
   
@@ -185,9 +192,10 @@ const PostFlat = () => {
             }}
             fullWidth={true}
             type="submit"
+            disabled={imageLoading} 
           >
-            {isLoading ? (
-              <CircularProgress color={"warning"} />
+            { isLoading  ? (
+              <CircularProgress color={"success"} />
             ) : (
               <Typography component="p" color="white" >
                 Share Flat
