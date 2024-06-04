@@ -10,6 +10,7 @@ import Link from "next/link";
 
 const FlatDetailsPage = ({ params }: any) => {
   const { data, isLoading, error } = useGetSingleFlatQuery(params.flatId);
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   if (isLoading) {
     return <Typography variant="body1" sx={{
@@ -40,7 +41,6 @@ const FlatDetailsPage = ({ params }: any) => {
 
   const flat = data;
   const photos = flat?.photos || [];
-
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
   };
@@ -95,7 +95,7 @@ const FlatDetailsPage = ({ params }: any) => {
          
         }}>
           Amenities of The Flat:
-           {flat.amenities.map((item:any, index:any) => (
+           {flat?.amenities&& flat?.amenities.map((item:any, index:any) => (
         <li key={index}>{item}</li>
       ))}
   

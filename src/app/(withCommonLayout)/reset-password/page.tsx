@@ -12,7 +12,7 @@ import { authApi, useResetPasswordMutation } from "@/redux/api/authApi";
 import { useEffect } from "react";
 import { authKey } from "@/contants/authkey";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { deleteCookies } from "@/services/actions/deleteCookies";
 
 const validationSchema = z.object({
@@ -22,7 +22,7 @@ const ResetPassword = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const token = searchParams.get("token");
-  console.log({ id, token });
+
   const router = useRouter();
 
   const [resetPassword] = useResetPasswordMutation();
@@ -33,7 +33,6 @@ const ResetPassword = () => {
   }, [token]);
 
   const onSubmit = async (values: FieldValues) => {
-    console.log(values);
     const updatedData = { ...values, id };
 
     try {

@@ -7,6 +7,7 @@ import { useFlatRequestPostMutation } from "@/redux/api/flatRequest";
 import { useRouter } from 'next/navigation';
 
 const FlatRequestPage = ({ params }: any) => {
+
   const router = useRouter();
   const { data: userData, isLoading: userLoading } = useGetSingleUserQuery({});
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
@@ -15,7 +16,9 @@ const FlatRequestPage = ({ params }: any) => {
 
   const handlePostFlatRequest = async () => {
     const res = await flatRequestPost(params.flatRequestId);
-    console.log({ res });
+    if (res?.data.id) {
+      router.push("/dashboard/profile/flatRequests");
+    }
   };
 
   if (userLoading || flatLoading) {

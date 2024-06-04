@@ -3,6 +3,7 @@ import SPFullScreenModal from "@/components/Shared/SPModal/SPFullScreenModal";
 import SPForm from "@/components/Forms/SPForm";
 import { Button, Grid, TextField,Box } from "@mui/material";
 import SPInput from "@/components/Forms/SPInput";
+import SpInputNumber from "@/components/Forms/SpInputNumber";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -30,25 +31,16 @@ type TProps = {
 const validationSchema = z.object({
   location: z.string().optional(),
   description: z.string().optional(),
-  rentAmount: z
-    .number()
-    .min(0, {
-      message: "Rent amount must be greater than or equal to 0!",
-    })
-    .optional(),
-  bedrooms: z
-    .number()
-    .int()
-    .min(1, {
-      message: "Bedrooms must be a positive integer!",
-    })
-    .optional(),
+  rentAmount: z.preprocess(
+    (val) => typeof val === 'string' ? parseFloat(val) : val,
+    z.number().min(0, { message: "Rent amount must be greater than or equal to 0!" })
+  ).optional(),
+  bedrooms: z.preprocess(
+    (val) => typeof val === 'string' ? parseInt(val, 10) : val,
+    z.number().min(1, { message: "Bedrooms must be a positive integer!" })
+  ).optional(),
   amenities: z
-    .array(z.string())
-    .min(1, {
-      message: "At least 1 amenity is required!",
-    })
-    .optional(),
+    .array(z.string()).optional(),
 });
 
 const FlatUpdateModal = ({
@@ -63,14 +55,12 @@ const FlatUpdateModal = ({
   const handleFlatEdit = async (values: any) => {
     console.log("Form values:", values);
 
-   const bedroomsValues=Number(values.bedrooms)
-   const rentAmountValues=Number(values.rentAmount)
     setUpdating(true);
 
     const payload = {
       ...values,
-      rentAmount:rentAmountValues, 
-      bedrooms: bedroomsValues, 
+      rentAmount:Number(values.rentAmount), 
+      bedrooms: Number(values.bedrooms), 
       amenities: amenities, 
     };
      
@@ -129,17 +119,15 @@ const FlatUpdateModal = ({
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-            <SPInput
+            <SpInputNumber
                 label="Rent Amount"
-                type="number"
                 fullWidth={true}
                 name="rentAmount"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-            <SPInput
+            <SpInputNumber
                 label="Bed Rooms"
-                type="number"
                 fullWidth={true}
                 name="bedrooms"
               />

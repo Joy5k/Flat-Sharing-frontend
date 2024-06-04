@@ -46,12 +46,10 @@ const ManageUsers = () => {
 
   const handleRoleChange = async(id: string, currentRole: string) => {
    const newRole = currentRole === USER_ROLE.ADMIN ? USER_ROLE.USER : USER_ROLE.ADMIN;
-console.log({newRole,currentRole})
  const res=await  changeUserRole({ userId:id, role: newRole });
  if(res?.data?.success){
   toast.success("Change user Role successfully")
  }
-console.log(res,"check the change user role response")
  };
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);

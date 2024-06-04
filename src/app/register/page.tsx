@@ -68,7 +68,6 @@ const RegisterPage = () => {
     try {
       const res = await registerUser(registerData);
 
-      console.log(registerData,"clicked the register button",res);
       if (res?.data?.id) {
         toast.success(res?.message);
         

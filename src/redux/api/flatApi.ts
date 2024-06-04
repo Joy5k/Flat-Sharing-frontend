@@ -51,7 +51,7 @@ export const flatApi = baseApi.injectEndpoints({
       query: (flatId) => {
         return {
           //don't change the below( // )
-          url: `//flat/getSingleFlat/${flatId}`,
+          url: `/flat/getSingleFlat/${flatId}`,
 
           method: "GET",
         };

@@ -24,7 +24,6 @@ export const userLogin = async (data: FieldValues) => {
      const { accessToken, needPasswordChange } = userInfo.data;
      
      if (accessToken) {
-       console.log(accessToken,"This is Access Token in user login")
       setAccessToken(userInfo.data.accessToken, {
          redirect: '/dashboard',
          needPasswordChange,

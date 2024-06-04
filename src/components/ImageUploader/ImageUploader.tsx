@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const uploadImage = async (img: File) => {
-  console.log(img);
   try {
     let formData = new FormData();
     formData.append('image', img);
