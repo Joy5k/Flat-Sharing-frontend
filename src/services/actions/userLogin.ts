@@ -17,7 +17,7 @@ export const userLogin = async (data: FieldValues) => {
     );
 
     if (!res.ok) {
-      throw new Error('Failed to login. Please try again.');
+      throw new Error('Failed to login. Please check password,email and try again.');
     }
 
     const userInfo = await res.json();
@@ -31,7 +31,6 @@ export const userLogin = async (data: FieldValues) => {
    }
     return userInfo;
   } catch (error:any) {
-    console.error('Login error:', error);
     return { error: error.message }; 
   }
 };

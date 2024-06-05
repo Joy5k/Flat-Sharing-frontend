@@ -34,7 +34,7 @@ const defaultMenus = [
       },
       {
         title: 'Change Password',
-        path: `${role}/profile/change-password`,
+        path: `profile/change-password`,
         icon: KeyIcon,
       },
     ],

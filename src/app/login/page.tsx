@@ -27,16 +27,16 @@ const [loading,setLoading]=useState(false)
       try {
          setLoading(true)
          const res = await userLogin(values);
+
          if (res?.data?.accessToken) {
             toast.success(res?.message);
             storeUserInfo({ accessToken: res?.data?.accessToken });
             setLoading(false)
          } else {
             setLoading(false)
-            setError(res?.message || 'An error occurred while logging in.');
+            setError(res?.error || 'An error occurred while logging in.');
          }
       } catch (err: any) {
-         console.error(err);
          setLoading(false)
          setError('An error occurred while logging in.');
       }

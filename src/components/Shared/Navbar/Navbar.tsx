@@ -15,9 +15,8 @@ import { useState,useEffect } from "react";
 import PersonIcon from '@mui/icons-material/Person';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {  getUserInfo,isLoggedIn } from "@/services/auth.services";
+import {isLoggedIn } from "@/services/auth.services";
 import { authKey } from '@/contants/authkey';
-import deleteCookies from '@/services/actions/deleteCookies'
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
