@@ -5,7 +5,7 @@ import assets from '@/assets';
 import Link from 'next/link';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { userLogin } from '@/services/actions/userLogin';
-import { storeUserInfo } from '@/services/auth.services';
+import { setRefreshToken, storeUserInfo } from '@/services/auth.services';
 import { toast } from 'sonner';
 import SPForm from '@/components/Forms/SPForm';
 import SPInput from '@/components/Forms/SPInput';
@@ -31,6 +31,7 @@ const [loading,setLoading]=useState(false)
          if (res?.data?.accessToken) {
             toast.success(res?.message);
             storeUserInfo({ accessToken: res?.data?.accessToken });
+           
             setLoading(false)
          } else {
             setLoading(false)
