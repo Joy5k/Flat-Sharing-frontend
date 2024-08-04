@@ -77,7 +77,7 @@ const Navbar = () => {
             <Typography
               component={Link}
               mt={1}
-              href="/"
+              href="/contactUs"
               color="#005480"
               fontWeight="semi-bold"
             >
