@@ -103,7 +103,7 @@ const ContactUs: React.FC = () => {
             <div className="w-1/2 p-6 flex flex-col justify-center text-white">
               <h2 className="text-3xl font-bold mb-4">About Our Spare Room</h2>
               <p className="mb-4">
-                Our spare room offers a comfortable and convenient stay with all the necessary amenities. Located in a peaceful neighborhood, it's perfect for both short-term and long-term stays.
+                Our spare room offers a comfortable and convenient stay with all the necessary amenities. Located in a peaceful neighborhood, its perfect for both short-term and long-term stays.
               </p>
               <ul className="list-disc list-inside">
                 <li className="mb-2">Fully furnished</li>
@@ -113,8 +113,17 @@ const ContactUs: React.FC = () => {
                 <li className="mb-2">Quiet and secure environment</li>
               </ul>
             </div>
-            <div className="w-1/2 h-full relative">
+            <div className="w-1/2 h-full relative flex flex-col justify-evenly">
               <Image src={location}  alt="Location Icon" className="rounded-l-lg w-fit" />
+              <div>
+                <address className='text-white  mb-14'>
+                  <h4 className='text-xl font-semibold'>Address</h4>
+                  123,Tuskhali,Patuakhali.
+                  Barisal,Bangladesh. <br />
+                  Post_code:8600 <br />
+                  Hotline:094857384757
+                  Phone:+08801601588531                </address>
+              </div>
             </div>
           </motion.div>
         </div>
