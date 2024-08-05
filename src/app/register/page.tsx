@@ -171,12 +171,12 @@ const RegisterPage = () => {
                   fullWidth={true}
                   type="submit"
                 >{loading ? <CircularProgress color="secondary" />:
-                <Typography component="p" color="white"> Register</Typography>
+                <Typography component="p" color="white" > Register</Typography>
                  
                 }
                 </Button>
                 <Typography component="p" fontWeight={300}>
-                  Do you already have an account? <Link href="/login">Login</Link>
+                  Do you already have an account? <Link href="/login" className='text-[#43BCCE] underline font-semibold' >Login</Link>
                 </Typography>
               </SPForm>
             </Box>

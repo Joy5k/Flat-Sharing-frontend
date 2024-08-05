@@ -152,9 +152,9 @@ const [loading,setLoading]=useState(false)
                         {loading ? <CircularProgress color="secondary" />:
                        <Typography component="p" color="white"> Login</Typography>}
                      </Button>
-                     <Typography component='p' fontWeight={300}>
-                        Don&apos;t have an account?{' '}
-                        <Link href='/register'>Create an account</Link>
+                     <Typography component='p' fontWeight={300} >
+                        Don&apos;t have an account? 
+                        <Link href='/register' className='text-[#43BCCE] underline font-semibold ml-1' >Create an account</Link>
                      </Typography>
                   </SPForm>
                </Box>
