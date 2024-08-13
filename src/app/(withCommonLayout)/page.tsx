@@ -4,6 +4,7 @@ import SearchField from "@/components/UI/HomePage/SearchBar/SearchBar";
 import { Divider } from "@mui/material";
 import AboutPage from "./about/page";
 import FindOutBanner from "@/components/UI/HomePage/findOutBanner/findOutBanner";
+import RoomOrRoomMate from "@/components/UI/HomePage/RoomOrRoomMate/RoomOrRoomMate";
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       <SearchField />
       <Divider>Spare Room</Divider>
       <AboutPage></AboutPage>
+      <RoomOrRoomMate></RoomOrRoomMate>
     
     </>
   );
