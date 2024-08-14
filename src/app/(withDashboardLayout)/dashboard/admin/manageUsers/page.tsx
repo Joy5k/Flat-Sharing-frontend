@@ -139,7 +139,7 @@ const ManageUsers = () => {
             />
           </Box>
         ) : (
-          <h1>Loading.....</h1>
+          <h1 className='text-4xl text-clip h-full text-center text-sky-800 font-bold font-mono mt-32'>Loading...</h1>
         )}
       </Box>
     </Box>

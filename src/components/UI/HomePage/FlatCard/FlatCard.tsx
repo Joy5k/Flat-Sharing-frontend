@@ -63,7 +63,7 @@ image={flat.photos[0] ? flat.photos[0].imageUrl : "https://images.pexels.com/pho
 
        <CardActions disableSpacing>
          
-         <Button  variant="contained" component={Link} href={`/flatDetails/${flat.id}`} sx={{margin:"0 auto"}}><DetailsIcon/> Details</Button>
+         <Button  variant="contained" component={Link} href={`/flatDetails/${flat.id}`} sx={{margin:"0 auto",border:"1px solid sky",width:"100%"}}> Details</Button>
        </CardActions>
      </Card>
    </Grid>

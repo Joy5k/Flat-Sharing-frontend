@@ -17,8 +17,7 @@ const Profile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isLoading } = useGetMYProfileQuery({});
-  const [updateMYProfile, { isLoading: updating }] =
-    useUpdateMYProfileMutation();
+  const [updateMYProfile, { isLoading: updating }] =useUpdateMYProfileMutation();
 
   // const fileUploadHandler = (file: File) => {
     // const formData = new FormData();
@@ -29,9 +28,16 @@ const Profile = () => {
   // };
 
   if (isLoading) {
-    return <p>Loading...</p>; 
-  }
+    return   <h1 className='text-4xl text-clip h-full text-center text-sky-800 font-bold font-mono mt-32'>Loading...</h1>
 
+  }
+  if (!data) {
+    return (
+      <h1 className='text-4xl text-clip h-full text-center text-red-800 font-bold font-mono mt-32'>
+        No profile data available.
+      </h1>
+    );
+  }
   return (
     
     <Box>
@@ -51,7 +57,7 @@ const Profile = () => {
               <Image
                 height={300}
                 width={400}
-                src={data?.profilePhoto}
+                src={data?.profilePhoto||"https://protrainy.com/static/staticCourse/img/about-extra-1.svg"}
                 alt="User Photo"
               />
             </Box>

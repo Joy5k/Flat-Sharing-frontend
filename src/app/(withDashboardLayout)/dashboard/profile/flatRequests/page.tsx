@@ -24,8 +24,12 @@ export default function BasicTable() {
       
     }}>Loading ...</Typography>;
   }
+  // if(data.length<=0){
+  //   return <p className='text-sky-800 text-center text-2xl mt-20'>No Flat Request Pending</p>
+  // }
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
+   <div>
+   <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
       <Table sx={{ minWidth: 150 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -42,20 +46,25 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((row:any) => (
-            <TableRow
-              key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row?.flat?.location}
-              </TableCell>
-              <TableCell align="right">{row.status}</TableCell>
+       {
+        data.length ?  data?.map((row:any) => (
+          <TableRow
+            key={row.id}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+           <TableCell component="th" scope="row">
+            {row?.flat?.location}
+          </TableCell>
+          <TableCell align="right">{row.status}</TableCell>
+             
     
-            </TableRow>
-          ))}
+          </TableRow>
+        )) :<p className='text-center w-full text-sky-800 font-mono font-semibold text-xl ml-10 py-10 '>No Flat Request Pending</p>
+       }
         </TableBody>
       </Table>
-    </TableContainer>
+      </TableContainer>
+    
+   </div>
   );
 }

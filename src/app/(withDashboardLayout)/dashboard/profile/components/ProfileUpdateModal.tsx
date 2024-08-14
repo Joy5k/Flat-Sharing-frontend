@@ -21,6 +21,7 @@ type TProps = {
 const validationSchema = z.object({
    username: z.string().optional(),
    email: z.string().email().optional(),
+   about:z.string().optional()
 });
 
 const ProfileUpdateModal = ({ open, setOpen, id, user, updateUser }: TProps) => {
@@ -32,6 +33,7 @@ const ProfileUpdateModal = ({ open, setOpen, id, user, updateUser }: TProps) => 
       const payload = {
          ...values,
          email: values.email.trim(), // Trim whitespace from email
+         about:values.about.trim()
       };
       setUpdating(false);
       setOpen(false);
@@ -68,6 +70,15 @@ const ProfileUpdateModal = ({ open, setOpen, id, user, updateUser }: TProps) => 
                      name='email'
                      type='email'
                      label='Email'
+                     sx={{ mb: 2 }}
+                     fullWidth
+                  />
+               </Grid>
+               <Grid item xs={12} sm={12} md={12}>
+                  <SPInput
+                     name='about'
+                     type='text'
+                     label='About'
                      sx={{ mb: 2 }}
                      fullWidth
                   />

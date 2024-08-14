@@ -1,5 +1,6 @@
 "use client"
 
+import { Fullscreen } from "@mui/icons-material";
 import { Box, Stack, styled, Typography } from "@mui/material";
 
 const StyledInformationBox = styled(Box)(({ theme }) => ({
@@ -39,7 +40,22 @@ const profileInformation = ({ data }: any) => {
           </Typography>
           <Typography>{data?.role}</Typography>
         </StyledInformationBox>
+        
       </Stack>
+      <div className="bg-[#F4F7FE] p-2 my-4">
+          <Typography color="secondary" variant="caption">
+            About
+          </Typography>
+          <Typography>
+            Hello, I am Ariana, the admin of Spare Room. Whether you are looking to find the perfect flatmate or need a cozy space to call your own, I’m here to help make your search as smooth as possible. Our community is all about connecting people with the right places, and I am dedicated to ensuring that your experience on our platform is positive, safe, and straightforward. <br /> <br />
+            If you have any questions, need assistance, or just want to chat about your search, feel free  to reach out. I am always here to help! <br />
+
+            Happy room hunting! <br /> <br />
+
+            Ariana <br />
+            Admin, Spare Room
+          </Typography>
+        </div>
 
     </>
   );
