@@ -24,9 +24,18 @@ export const flatRequestApi = baseApi.injectEndpoints({
             }
          },
          providesTags: [tagTypes.flatRequestPost],
+      }),
+      getAllFlatRequestForAdmin:build.query({
+         query:()=>{
+            return{
+               url:"/flat-share-request/getAllFlatRequestForAdmin",
+               method:"GET"
+            }
+         },
+         providesTags: [tagTypes.flatRequestPost],
       })
 
    })
 })
 
-export const { useFlatRequestPostMutation,useGetAllFlatRequestQuery } = flatRequestApi;
+export const { useFlatRequestPostMutation,useGetAllFlatRequestQuery,useGetAllFlatRequestForAdminQuery } = flatRequestApi;

@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useGetAllFlatRequestQuery} from "@/redux/api/flatRequest";
 import { Box, IconButton, Paper,Button, Typography } from '@mui/material';
+import ChartComponent from '../../components/chart/Chart';
 
 
 export default function BasicTable() {
@@ -28,8 +29,10 @@ export default function BasicTable() {
   //   return <p className='text-sky-800 text-center text-2xl mt-20'>No Flat Request Pending</p>
   // }
   return (
-   <div>
-   <TableContainer component={Paper} sx={{ maxWidth: 450 }}>
+   <div >
+   <TableContainer component={Paper} sx={{ maxWidth: 450 ,
+    boxShadow:" 5px 20px 10px 0 rgba(14, 165, 233, 0.3), 0 1px 2px 0 rgba(14, 165, 233, 0.06)"
+  }}>
       <Table sx={{ minWidth: 150 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -64,7 +67,7 @@ export default function BasicTable() {
         </TableBody>
       </Table>
       </TableContainer>
-    
+   
    </div>
   );
 }

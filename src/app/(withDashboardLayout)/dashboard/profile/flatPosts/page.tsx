@@ -49,7 +49,9 @@ export default function FlatCard() {
   
   }
   return (
-    <Box>
+    <div>
+      <p className="text-xl text-sky-800 font-semibold   -mb-20">Flats Management</p>
+      <Box sx={{}}>
       <FlatUpdateModal
         open={isModalOpen}
         setOpen={setIsModalOpen}
@@ -59,16 +61,18 @@ export default function FlatCard() {
 
       <Box sx={{ margin: "100px 0 0 0" }}>
         {isLoading ? (
-          <Typography color="text.secondary">Loading...</Typography>
+                   <h1 className='text-4xl text-clip h-full text-center text-sky-800 font-bold font-mono mt-32'>Loading...</h1>
+
         ) : (
-          <Grid container spacing={2}>
+          <Grid container>
             {data?.map((flat: any) => (
-              <Grid item key={flat.id} xs={12} sm={6} md={4}>
+              <Grid item key={flat.id} xs={12} sm={6} md={4}  >
                 <Card
                   sx={{
-                    width: 345,
-                    height: 440,
-                    marginBottom: "20px",
+                    width: 310,
+                    height: 450,
+                    marginBottom: "30px",
+                    padding:"10px 0",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
@@ -141,5 +145,6 @@ export default function FlatCard() {
         )}
       </Box>
     </Box>
+    </div>
   );
 }

@@ -47,12 +47,12 @@ const profileInformation = ({ data }: any) => {
             About
           </Typography>
           <Typography>
-            Hello, I am Ariana, the admin of Spare Room. Whether you are looking to find the perfect flatmate or need a cozy space to call your own, I’m here to help make your search as smooth as possible. Our community is all about connecting people with the right places, and I am dedicated to ensuring that your experience on our platform is positive, safe, and straightforward. <br /> <br />
+            Hello, I am {data?.username}, the admin of Spare Room. Whether you are looking to find the perfect flatmate or need a cozy space to call your own, I’m here to help make your search as smooth as possible. Our community is all about connecting people with the right places, and I am dedicated to ensuring that your experience on our platform is positive, safe, and straightforward. <br /> <br />
             If you have any questions, need assistance, or just want to chat about your search, feel free  to reach out. I am always here to help! <br />
 
             Happy room hunting! <br /> <br />
 
-            Ariana <br />
+            {data?.username} <br />
             Admin, Spare Room
           </Typography>
         </div>

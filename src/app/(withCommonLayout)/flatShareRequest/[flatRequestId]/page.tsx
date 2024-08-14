@@ -5,6 +5,7 @@ import { useGetSingleFlatQuery } from "@/redux/api/flatApi";
 import { useGetSingleUserQuery } from "@/redux/api/userApi";
 import { useFlatRequestPostMutation } from "@/redux/api/flatRequest";
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const FlatRequestPage = ({ params }: any) => {
 
@@ -16,9 +17,15 @@ const FlatRequestPage = ({ params }: any) => {
 
   const handlePostFlatRequest = async () => {
     const res = await flatRequestPost(params.flatRequestId);
-    if (res?.data.id) {
+   try {
+  
+    if (res?.data?.id) {
       router.push("/dashboard/profile/flatRequests");
     }
+   } catch (error:any) {
+
+    toast.error(error?.message||"something went wrong")
+   }
   };
 
   if (userLoading || flatLoading) {

@@ -9,7 +9,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import { useGetAllUserQuery } from "@/redux/api/userManagementApi";
 import { useState } from "react";
 import { useGetAllFlatPostsAdminQuery } from "@/redux/api/flatApi";
-import { useGetAllFlatRequestQuery } from "@/redux/api/flatRequest";
+import { useGetAllFlatRequestForAdminQuery } from "@/redux/api/flatRequest";
+import ChartComponent from "../components/chart/Chart";
+import FlatRequestTable from "../profile/components/FlatRequestTable";
 const AdminPage = () => {
   const query: Record<string, any> = {};
   const [page, setPage] = useState(1);
@@ -18,10 +20,11 @@ const AdminPage = () => {
   query["limit"] = limit;
   const { data:flats, isLoading:flatLoading } = useGetAllFlatPostsAdminQuery({})
   const { data, isLoading } = useGetAllUserQuery({ ...query });
-  const {data:flatReq,isLoading:flatReqLoading}=useGetAllFlatRequestQuery({})
+  const {data:flatReq,isLoading:flatReqLoading}=useGetAllFlatRequestForAdminQuery({})
   if(isLoading || flatLoading){
     return <p>loading..</p>
   }
+  console.log(flatReq)
   return (
     <Box>
     <h1 className="text-sky-800 mb-5">Overview</h1>
@@ -39,7 +42,7 @@ const AdminPage = () => {
           </div>
           </div>
           <hr />
-          <p className="font-mono text-white">{flats.length * 3.67}% Increase</p>
+          <p className="font-mono text-white">{(flats.length * 3.67).toFixed(2)}% Increase</p>
           <div>
 
           </div>
@@ -57,7 +60,7 @@ const AdminPage = () => {
           </div>
           </div>
           <hr />
-          <p className="font-mono text-white">{data.length * 1.23}% Increase</p>
+          <p className="font-mono text-white">{(data.length * 1.23).toFixed(2)}% Increase</p>
           <div>
 
           </div>
@@ -74,7 +77,7 @@ const AdminPage = () => {
         </div>
           </div>
           <hr />
-          <p className="font-mono text-white">{flatReq.length * 2.45}% Increase</p>
+          <p className="font-mono text-white">{(flatReq.length * 2.45).toFixed(2)}% Increase</p>
           <div>
 
           </div>
@@ -83,8 +86,19 @@ const AdminPage = () => {
       <h3 className="mt-10">User History</h3>
       <ManageUsers></ManageUsers>
       <h2 className="my-6"> Flat Request Pending</h2>
-      <BasicTable></BasicTable>
-    </div>
+      
+
+
+       </div>
+       {/* <div className='flex flex-col md:flex-row lg:flex-row justify-center gap-5 h-72'> */}
+        <div className="w-full h-full">
+        <FlatRequestTable data={flatReq} width={"100"}></FlatRequestTable>
+        </div>
+        <h3 className="mt-20 mb-5 text-xl text-sky-800 ">Total Flats,Users and Flat Request Chart</h3>
+      <div className='w-full border border-dashed shadow-sky-300 shadow-xl flex justify-center p-5'>
+   <ChartComponent></ChartComponent>
+   </div>
+         {/* </div> */}
   </Box>
   );
 };
