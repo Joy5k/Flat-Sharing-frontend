@@ -15,7 +15,7 @@ const ChartComponent = () => {
   const { data: flatRequest, isLoading: flatLoading } = useGetAllFlatRequestForAdminQuery({});
 
   if (isLoading || userLoading || flatLoading) {
-    return <p>Loading...</p>;
+    return <p></p>;
   }
 
   const data = {
@@ -23,7 +23,7 @@ const ChartComponent = () => {
     datasets: [
       {
         label: 'Total Count',
-        data: [adminFlats.length, allUsers.length, flatRequest.length],
+        data: [adminFlats?.length, allUsers?.length, flatRequest?.length],
         borderColor: 'rgba(75, 192, 192, 1)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         fill: true,

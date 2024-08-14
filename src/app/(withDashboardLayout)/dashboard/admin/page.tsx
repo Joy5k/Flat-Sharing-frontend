@@ -38,11 +38,11 @@ const AdminPage = () => {
          }}></ApartmentIcon>
           <div>
           <p className="text-white text-sm"> Flats</p>
-          <p className="text-white text-4xl py-5">{flats.length}</p>
+          <p className="text-white text-4xl py-5">{flats?.length}</p>
           </div>
           </div>
           <hr />
-          <p className="font-mono text-white">{(flats.length * 3.67).toFixed(2)}% Increase</p>
+          <p className="font-mono text-white">{(flats?.length * 3.67).toFixed(2)}% Increase</p>
           <div>
 
           </div>
@@ -56,11 +56,11 @@ const AdminPage = () => {
          }}></GroupIcon>
           <div>
           <p className="text-white text-sm"> Users</p>
-          <p className="text-white text-4xl py-5">{data.length}</p>
+          <p className="text-white text-4xl py-5">{data?.length}</p>
           </div>
           </div>
           <hr />
-          <p className="font-mono text-white">{(data.length * 1.23).toFixed(2)}% Increase</p>
+          <p className="font-mono text-white">{(data?.length * 1.23).toFixed(2)}% Increase</p>
           <div>
 
           </div>
@@ -73,11 +73,11 @@ const AdminPage = () => {
          }}></PendingActionsIcon>
         <div>
         <p className="text-white text-sm"> Flat Requests</p>
-        <p className="text-white text-4xl py-5">{flatReq.length}</p>
+        <p className="text-white text-4xl py-5">{flatReq?.length}</p>
         </div>
           </div>
           <hr />
-          <p className="font-mono text-white">{(flatReq.length * 2.45).toFixed(2)}% Increase</p>
+          <p className="font-mono text-white">{(flatReq?.length * 2.45).toFixed(2)}% Increase</p>
           <div>
 
           </div>

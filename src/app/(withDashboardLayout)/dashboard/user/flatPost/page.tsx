@@ -78,7 +78,7 @@ const PostFlat = () => {
   
 try {
   const uploadedPhotos: { imageUrl: string }[] = [];
-    for (let i = 0; i < selectedFiles.length; i++) {
+    for (let i = 0; i < selectedFiles?.length; i++) {
       const file = selectedFiles[i];
       const response = await uploadImage(file);
       if (response) {

@@ -42,11 +42,11 @@ const FlatDetailsPage = ({ params }: any) => {
   const flat = data;
   const photos = flat?.photos || [];
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % photos?.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + photos.length) % photos.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + photos?.length) % photos?.length);
   };
 
   return (

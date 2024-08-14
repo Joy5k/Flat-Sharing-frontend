@@ -35,7 +35,7 @@ const FlatRequestTable=({data,width}:{data:any,width:number|string})=>{
         </TableHead>
         <TableBody>
        {
-        data.length ?  data?.map((row:any,i:any) => (
+        data?.length ?  data?.map((row:any,i:any) => (
           <TableRow
             key={row.id}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -156,6 +156,11 @@ const [loading,setLoading]=useState(false)
                         Don&apos;t have an account? 
                         <Link href='/register' className='text-[#43BCCE] underline font-semibold ml-1' >Create an account</Link>
                      </Typography>
+                     <div className='border shadow-xl p-3'>
+                        <p className='my-3 text-xl font-mono font-semibold underline text-center text-sky-900'>Login As Admin</p>
+                        <p className='text-lg font-mono font-semibold text-sky-700'>Email: ariana@gmail.com</p>
+                        <p className='text-lg font-mono font-semibold text-sky-700'>Password: 123456</p>
+                     </div>
                   </SPForm>
                </Box>
             </Box>

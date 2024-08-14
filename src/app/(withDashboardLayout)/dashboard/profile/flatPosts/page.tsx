@@ -96,7 +96,7 @@ export default function FlatCard() {
 
                   <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                      {flat.description.length > 150
+                      {flat.description?.length > 150
                         ? `${flat.description.substring(0, 80)}...`
                         : flat.description}
                     </Typography>
