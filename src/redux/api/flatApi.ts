@@ -25,6 +25,7 @@ export const flatApi = baseApi.injectEndpoints({
           }&priceMax=${args.priceMax ? args.priceMax : ""}`,
           method: "GET",
         };
+        
       },
       providesTags: [tagTypes.flatPost],
     }),

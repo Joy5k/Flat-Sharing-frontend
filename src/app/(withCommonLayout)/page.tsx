@@ -3,11 +3,16 @@ import HeroSection from "@/components/UI/HomePage/HeroSection/HeroSection";
 import SearchField from "@/components/UI/HomePage/SearchBar/SearchBar";
 import { Divider } from "@mui/material";
 import AboutPage from "./about/page";
-import FindOutBanner from "@/components/UI/HomePage/findOutBanner/findOutBanner";
 import RoomOrRoomMate from "@/components/UI/HomePage/RoomOrRoomMate/RoomOrRoomMate";
 import FeaturedCart from "@/components/UI/HomePage/FeaturedCart/FeaturedCart";
+import dynamic from 'next/dynamic';
 
+const FindOutBanner = dynamic(
+  () => import('@/components/UI/HomePage/findOutBanner/findOutBanner'),
+  { ssr: false }
+);
 const HomePage = () => {
+  
   return (
     <>
       <HeroSection />

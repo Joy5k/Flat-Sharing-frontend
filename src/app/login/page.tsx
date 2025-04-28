@@ -4,6 +4,8 @@ import Image from 'next/image';
 import assets from '@/assets';
 import Link from 'next/link';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 import { userLogin } from '@/services/actions/userLogin';
 import { setRefreshToken, storeUserInfo } from '@/services/auth.services';
 import { toast } from 'sonner';
@@ -11,8 +13,9 @@ import SPForm from '@/components/Forms/SPForm';
 import SPInput from '@/components/Forms/SPInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { getAccessToken } from '@/redux/api/wishlist';
 
  const validationSchema = z.object({
    email: z.string().email('Please enter a valid email address!'),
@@ -20,8 +23,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 });
 
 const LoginPage = () => {
+   const navigate = useRouter();
    const [error, setError] = useState('');
 const [loading,setLoading]=useState(false)
+const dispatch = useDispatch();
+useEffect(() => {
+   const token =dispatch(getAccessToken("accessToken"));
+   if (token) {
+      navigate.push('/'); 
+   }
+}, [navigate, dispatch]);
    const handleLogin = async (values: FieldValues) => {
    
       try {
