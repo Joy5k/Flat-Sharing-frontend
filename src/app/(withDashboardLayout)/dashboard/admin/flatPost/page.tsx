@@ -19,41 +19,10 @@ import { FieldValues } from "react-hook-form";
 import uploadImage from "@/components/ImageUploader/ImageUploader";
 import { useFlatPostMutation } from "@/redux/api/flatApi";
 import { useRouter } from "next/navigation";
+import { TFlatFormValues } from "@/types";
 
-const createFlatSchema = z.object({
-  location: z.string({
-    required_error: "location is required!",
-  }),
-  description: z.string({
-    required_error: "Description is required!",
-  }),
-  rentAmount: z.preprocess(
-    (val) => typeof val === 'string' ? parseFloat(val) : val,
-    z.number().min(0, { message: "Rent amount must be greater than or equal to 0!" })
-  ),
-  bedrooms: z.preprocess(
-    (val) => typeof val === 'string' ? parseInt(val, 10) : val,
-    z.number().min(1, { message: "Bedrooms must be a positive integer!" })
-  ),
-  amenities: z.array(
-    z.string({
-      required_error: "Minimum 1 amenities is required!",
-    })
-  ),
-  photos: z
-    .array(
-      z
-        .string({
-          required_error: "Multiples Photos are needed!",
-        })
-        .url()
-    )
-    .optional(),
-});
 
-type FlatFormValues = z.infer<typeof createFlatSchema>;
-
- const defaultFlatValues: FlatFormValues = {
+ const defaultFlatValues: TFlatFormValues = {
   location: "",
   description: "",
   rentAmount:1000,

@@ -29,6 +29,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import { isLoggedIn } from "@/services/auth.services";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -182,6 +183,15 @@ const Navbar = () => {
                     href="/dashboard/profile"
                   >
                     <PersonIcon /> Profile
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    textAlign="center"
+                    component={Link}
+                    href="/wishlist"
+                  >
+                    <FavoriteIcon /> Wishlist
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>

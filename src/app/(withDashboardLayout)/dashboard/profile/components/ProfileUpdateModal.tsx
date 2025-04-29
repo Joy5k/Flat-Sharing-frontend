@@ -32,8 +32,8 @@ const ProfileUpdateModal = ({ open, setOpen, id, user, updateUser }: TProps) => 
       setUpdating(true);
       const payload = {
          ...values,
-         email: values.email.trim(), // Trim whitespace from email
-         about:values.about.trim()
+         email: values?.email?.trim(), 
+         about:values?.about?.trim()
       };
       setUpdating(false);
       setOpen(false);

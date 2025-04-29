@@ -3,9 +3,7 @@ import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import assets from '@/assets';
 import Link from 'next/link';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
+import { FieldValues} from 'react-hook-form';
 import { userLogin } from '@/services/actions/userLogin';
 import { setRefreshToken, storeUserInfo } from '@/services/auth.services';
 import { toast } from 'sonner';
@@ -13,9 +11,9 @@ import SPForm from '@/components/Forms/SPForm';
 import SPInput from '@/components/Forms/SPInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { getAccessToken } from '@/redux/api/wishlist';
+import { Spinner } from '@/utils/spinner';
 
  const validationSchema = z.object({
    email: z.string().email('Please enter a valid email address!'),
@@ -23,16 +21,9 @@ import { getAccessToken } from '@/redux/api/wishlist';
 });
 
 const LoginPage = () => {
-   const navigate = useRouter();
    const [error, setError] = useState('');
 const [loading,setLoading]=useState(false)
-const dispatch = useDispatch();
-useEffect(() => {
-   const token =dispatch(getAccessToken("accessToken"));
-   if (token) {
-      navigate.push('/'); 
-   }
-}, [navigate, dispatch]);
+
    const handleLogin = async (values: FieldValues) => {
    
       try {
@@ -40,16 +31,20 @@ useEffect(() => {
          const res = await userLogin(values);
 
          if (res?.data?.accessToken) {
+            setRefreshToken(res?.data?.refreshToken);
             toast.success(res?.message);
             storeUserInfo({ accessToken: res?.data?.accessToken });
            
             setLoading(false)
          } else {
             setLoading(false)
+            console.log(res,'auth error')
             setError(res?.error || 'An error occurred while logging in.');
          }
       } catch (err: any) {
          setLoading(false)
+         console.log(err,'auth catch error')
+
          setError('An error occurred while logging in.');
       }
    };
@@ -161,8 +156,14 @@ useEffect(() => {
                         type='submit'
                      >
                         {loading ? <CircularProgress color="secondary" />:
-                       <Typography component="p" color="white"> Login</Typography>}
+                       <Typography component="p" color="white">{
+                           loading ? <Button variant="contained" disabled>
+                           <Spinner height="20px" width="20px" />
+                           <Box sx={{ ml: 1 }}>Processing...</Box>
+                         </Button> : 'Login'
+                       } </Typography>}
                      </Button>
+                     
                      <Typography component='p' fontWeight={300} >
                         Don&apos;t have an account? 
                         <Link href='/register' className='text-[#43BCCE] underline font-semibold ml-1' >Create an account</Link>

@@ -12,19 +12,23 @@ import { useGetAllFlatPostsAdminQuery } from "@/redux/api/flatApi";
 import { useGetAllFlatRequestForAdminQuery } from "@/redux/api/flatRequest";
 import ChartComponent from "../components/chart/Chart";
 import FlatRequestTable from "../profile/components/FlatRequestTable";
+import { Spinner } from "@/utils/spinner";
 const AdminPage = () => {
   const query: Record<string, any> = {};
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   query["page"] = page;
   query["limit"] = limit;
+
   const { data:flats, isLoading:flatLoading } = useGetAllFlatPostsAdminQuery({})
   const { data, isLoading } = useGetAllUserQuery({ ...query });
   const {data:flatReq,isLoading:flatReqLoading}=useGetAllFlatRequestForAdminQuery({})
-  if(isLoading || flatLoading){
-    return <p>loading..</p>
+  
+  if(isLoading || flatLoading||flatReqLoading){
+    return <Box sx={{display:"flex",justifyContent:"center",alignItems:"center",height:"100vh"}}>
+      <Spinner height="100px" width="100px" />
+    </Box>
   }
-  console.log(flatReq)
   return (
     <Box>
     <h1 className="text-sky-800 mb-5">Overview</h1>

@@ -1,16 +1,23 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { get } from 'http';
-import { useGetFlatPostsQuery } from './flatApi';
+import { toast } from 'sonner';
 
 const storedProducts = typeof window !== "undefined" ? JSON.parse(localStorage.getItem('products') || '[]') : [];
 
-interface Product {
-  id: number;
+export interface Product {
+  id: string;
   name: string;
   price: number;
+  rentAmount: number;
+  bedrooms: number;
+  description: string;
+  location: string;
+  image: string;
+  photos: string[]; // Assuming it's an array of image URLs
+  userId: string;
+  createdAt: string; // You can use `Date` if you parse it before usage
+  updatedAt: string;
 }
-
 interface ProductState {
   products: Product[];
 }
@@ -24,38 +31,30 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action: PayloadAction<any>) => {
-      state.products.push(action.payload);
-
-      // LocalStorage-এ Save করা
-      localStorage.setItem('products', JSON.stringify(state.products));
+      if(!state.products.some(product => product.id === action.payload.id)) {
+        state.products.push(action.payload);  
+        localStorage.setItem('products', JSON.stringify(state.products));
+        console.log(action.payload, 'added to wishlist!')
+      }else {
+        toast.warning("Already in wishlist!");
+      }
     },
-    removeProduct: (state, action: PayloadAction<number>) => {
-      state.products = state.products.filter(product => product.id !== action.payload);
-
-      // LocalStorage-এ Update করা
+    removeProduct: (state, action: PayloadAction<string>) => {
+      state.products = state.products.filter((product: Product) => product.id !==action.payload);
       localStorage.setItem('products', JSON.stringify(state.products));
     },
     clearProducts: (state) => {
       state.products = [];
 
-      // LocalStorage-এ Clear করা
       localStorage.removeItem('products');
     },
     getProducts: (state) => {
-      // LocalStorage থেকে প্রোডাক্টস নিয়ে আসা
         const products = typeof window !== "undefined" ? JSON.parse(localStorage.getItem('products') || '[]') : [];
         state.products = products;
         return products;
-    },
-    getAccessToken: (state, action: PayloadAction<string>) => {
-        const token = action.payload;
-        if (typeof window !== "undefined") {
-            localStorage.getItem('accessToken');
-        }
-        },
-        setFlats: (state, action: PayloadAction<any>) => {
-            
-            localStorage.setItem('flats', JSON.stringify(action.payload));
+          },
+      
+          setFlats: (state, action: PayloadAction<any>) => {  localStorage.setItem('flats', JSON.stringify(action.payload));
 
            
         },
@@ -67,5 +66,5 @@ const productSlice = createSlice({
   }
 });
 
-export const { addProduct,getAccessToken,clearProducts,removeProduct,getProducts,setFlats,getFlats } = productSlice.actions;
+export const { addProduct,clearProducts,removeProduct,getProducts,setFlats,getFlats } = productSlice.actions;
 export default productSlice.reducer;

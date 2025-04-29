@@ -1,13 +1,13 @@
 "use client";
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Box, Typography, Grid, Card, CardHeader, CardMedia, CardContent, CardActions, Button, IconButton, keyframes } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useGetFlatPostsQuery } from '@/redux/api/flatApi';
 import DetailsIcon from '@mui/icons-material/Details';
 import Link from "next/link";
 import { useAppDispatch } from '@/redux/hooks';
-import { addProduct, getProducts, removeProduct } from '@/redux/api/wishlist';
+import { addProduct, removeProduct } from '@/redux/api/wishlist';
 import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
 
@@ -27,7 +27,7 @@ export default function FlatCard({ searchData }: any) {
   const dispatch = useAppDispatch();
   const [liked, setLiked] = useState<{ [key: string]: boolean }>({});
   const { data, isLoading } = useGetFlatPostsQuery(searchData);
-
+  console.log(data,'flat data getting in flat card')
   const productState = useSelector((state: any) => state.product);
 
   const handleLike = (flat: any) => {

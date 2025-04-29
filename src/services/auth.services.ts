@@ -1,6 +1,8 @@
 import { authKey } from "@/contants/authkey";
+import { getAccessToken } from "@/utils/getTokenFromCookie";
 // import { instance as axiosInstance } from "@/helpers/axios/axiosInstance";
 import { decodedToken } from "@/utils/jwt";
+import { instance as axiosInstance } from "../helpers/axios/axiosInstance";
 
 import {
   getFromLocalStorage,
@@ -29,7 +31,7 @@ export const getUserInfo = () => {
 };
 
 export const isLoggedIn = () => {
-  const authToken = getFromLocalStorage(authKey);
+  const authToken = getAccessToken();
   if (authToken) {
     return !!authToken;
   }
@@ -41,11 +43,11 @@ export const removeUser = () => {
 
 // there is update your access token if that was invalidated
 
-// export const getNewAccessToken = async () => {
-//   return await axiosInstance({
-//     url: "https://spare-room-backend.vercel.app/api/v1/auth/refresh-token",
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     withCredentials: true,
-//   });
-// };
+export const getNewAccessToken = async () => {
+  return await axiosInstance({
+    url: "https://spare-room-backend.vercel.app/api/v1/auth/refresh-token",
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+  });
+};
