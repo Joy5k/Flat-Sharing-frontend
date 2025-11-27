@@ -104,6 +104,7 @@ const SearchField: React.FC = () => {
             label="Bed Room"
             onChange={handleSelectBedroom}
           >
+            <MenuItem value=''>Any</MenuItem>
             {Array.from({ length: 10 }, (_, i) => (
               <MenuItem key={i + 1} value={i + 1}>{i + 1}</MenuItem>
             ))}

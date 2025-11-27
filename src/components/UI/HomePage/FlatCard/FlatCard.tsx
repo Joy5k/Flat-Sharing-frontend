@@ -10,6 +10,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { addProduct, removeProduct } from '@/redux/api/wishlist';
 import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
+import { Spinner } from '@/utils/spinner';
 
 // Keyframe animations
 const fadeIn = keyframes`
@@ -27,7 +28,6 @@ export default function FlatCard({ searchData }: any) {
   const dispatch = useAppDispatch();
   const [liked, setLiked] = useState<{ [key: string]: boolean }>({});
   const { data, isLoading } = useGetFlatPostsQuery(searchData);
-  console.log(data,'flat data getting in flat card')
   const productState = useSelector((state: any) => state.product);
 
   const handleLike = (flat: any) => {
@@ -61,14 +61,7 @@ export default function FlatCard({ searchData }: any) {
   };
 
   if (isLoading) {
-    return <Typography variant="body1" sx={{
-      height: "100vh",
-      color: "primary.main",
-      fontWeight: "600",
-      fontSize: "30px",
-      textAlign: "center",
-      margin: "50px auto"
-    }}>Loading ...</Typography>;
+    return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}><Spinner></Spinner></Box>
   }
 
   return (

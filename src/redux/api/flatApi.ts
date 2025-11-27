@@ -38,6 +38,22 @@ export const flatApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.flatPost],
     }),
+
+// retrive all flats(deleted or deactivated) by super admin
+
+    getAllFlatBySuperAdmin: build.query({
+      query: () => {
+        return {
+          url: "/flat/get-all-flats-by-super-admin",
+          method: "GET",
+        };
+      },
+      providesTags: [tagTypes.flatPost],
+    }),
+
+
+
+
     getAllMyFlats: build.query({
       query: () => {
         return {
@@ -71,6 +87,33 @@ export const flatApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [tagTypes.flatPost],
     }),
+
+    // activate deactivated all flats by super admin
+    activeateDeactivatedFlatBySuperAdmin:build.mutation({
+      query:(id)=>{
+        return {
+          url:`/flat/activeFlat/${id}`,
+          method:"PUT"
+        }
+      },
+            invalidatesTags: [tagTypes.flatPost],
+
+    }),
+
+//retrive all deleted flat by super admin
+retriveDeletedFlatBySuperAdmin:build.mutation({
+  query:(id)=>{
+    return {
+      url :`/flat/retriveDeletedFlat/${id}`,
+      method:"PUT"
+    }
+  },
+        invalidatesTags: [tagTypes.flatPost],
+
+}),
+
+
+
     deleteFlatByAdmin: build.mutation({
        query: (flatId) => {
         return {
@@ -87,8 +130,11 @@ export const {
   useFlatPostMutation,
   useGetAllFlatPostsAdminQuery,
   useGetFlatPostsQuery,
+  useGetAllFlatBySuperAdminQuery,
    useGetSingleFlatQuery,
   useUpdateFlatByAdminMutation,
   useDeleteFlatByAdminMutation,
+  useActiveateDeactivatedFlatBySuperAdminMutation,
+  useRetriveDeletedFlatBySuperAdminMutation,
   useGetAllMyFlatsQuery
 } = flatApi;

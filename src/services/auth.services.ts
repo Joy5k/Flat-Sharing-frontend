@@ -45,7 +45,8 @@ export const removeUser = () => {
 
 export const getNewAccessToken = async () => {
   return await axiosInstance({
-    url: "https://spare-room-backend.vercel.app/api/v1/auth/refresh-token",
+    url: "https://flat-sharing-backend.onrender.com/api/v1/auth/refresh-token",
+
     method: "POST",
     headers: { "Content-Type": "application/json" },
     withCredentials: true,

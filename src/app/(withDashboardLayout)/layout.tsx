@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
    const router = useRouter();
    const token=getAccessToken()
-   console.log(token,"token")
 useEffect(() => {
    if (!token) {
       router.push('/login');

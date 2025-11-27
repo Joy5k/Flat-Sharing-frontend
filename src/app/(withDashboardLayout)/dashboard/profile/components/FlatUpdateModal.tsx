@@ -72,7 +72,7 @@ const FlatUpdateModal = ({
     
      try {
       const res = await updateFlat(flatUpdateData);
-      if (res.data.id) {
+      if (res?.data.id) {
         toast.success("Flat Updated");
       }
     } catch (error) {

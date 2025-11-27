@@ -9,16 +9,19 @@ import SPInput from "@/components/Forms/SPInput";
 import SPForm from "@/components/Forms/SPForm";
 import { useSearchParams } from "next/navigation";
 import { authApi, useResetPasswordMutation } from "@/redux/api/authApi";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { authKey } from "@/contants/authkey";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { deleteCookies } from "@/services/actions/deleteCookies";
+import { Spinner } from "@/utils/spinner";
 
 const validationSchema = z.object({
   newPassword: z.string().min(6, "Must be at least 6 characters long"),
 });
-const ResetPassword = () => {
+
+// Separate component that uses useSearchParams
+const ResetPasswordForm = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const token = searchParams.get("token");
@@ -47,9 +50,10 @@ const ResetPassword = () => {
         throw new Error("Something Went Wrong, Try Again");
       }
     } catch (error) {
-      toast.success("Something Went Wrong, Try Again");
+      toast.error("Something Went Wrong, Try Again");
     }
   };
+
   return (
     <Box
       sx={{
@@ -100,6 +104,19 @@ const ResetPassword = () => {
         </Button>
       </SPForm>
     </Box>
+  );
+};
+
+// Main component with Suspense boundary
+const ResetPassword = () => {
+  return (
+    <Suspense fallback={
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+       <Spinner></Spinner>
+      </Box>
+    }>
+      <ResetPasswordForm />
+    </Suspense>
   );
 };
 

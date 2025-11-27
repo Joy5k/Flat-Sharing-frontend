@@ -7,9 +7,8 @@ import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import KeyIcon from '@mui/icons-material/Key';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RequestPageIcon from '@mui/icons-material/RequestPage';
+import { House } from '@mui/icons-material';
 export const drawerItems = (role: UserRole): DrawerItem[] => {
    const roleMenus: DrawerItem[] = [];
 const defaultMenus = [
@@ -42,7 +41,32 @@ const defaultMenus = [
 ];
 
    switch (role) {
-      case USER_ROLE.ADMIN:
+       case USER_ROLE.SUPER_ADMIN :
+         roleMenus.push(
+            {
+               title: 'Dashboard',
+               path: `${role}`,
+               icon: DashboardIcon,
+            },
+            {
+               title: 'Manage Users',
+               path: `${role}/manageUsers`,
+               icon: GroupIcon,
+           },
+             {
+               title: 'Flats Management',
+               path: `${role}/flatsManagement`,
+               icon: House,
+           },
+            {
+              title: 'Flat Post',
+              path: `${role}/flatPost`,
+              icon: PostAddIcon,
+           },
+         );
+         break;
+
+      case USER_ROLE.ADMIN :
          roleMenus.push(
             {
                title: 'Dashboard',

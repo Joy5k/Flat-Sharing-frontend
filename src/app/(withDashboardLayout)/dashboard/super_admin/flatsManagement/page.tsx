@@ -28,8 +28,10 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Input,
+
 } from "@mui/material";
-import {
+import ReplayIcon from '@mui/icons-material/Replay';import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Restore as RestoreIcon,
@@ -38,11 +40,11 @@ import {
   FilterList as FilterIcon,
 } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
-import { useGetAllFlatPostsAdminQuery, useUpdateFlatByAdminMutation, useDeleteFlatByAdminMutation } from "@/redux/api/flatApi";
+import { useGetAllFlatBySuperAdminQuery, useUpdateFlatByAdminMutation, useDeleteFlatByAdminMutation, useRetriveDeletedFlatBySuperAdminMutation, useActiveateDeactivatedFlatBySuperAdminMutation } from "@/redux/api/flatApi";
 import { toast } from "sonner";
 import Image from "next/image";
-import FlatUpdateModal from "../components/FlatUpdateModal";
 import Link from "next/link";
+import FlatUpdateModal from "../../profile/components/FlatUpdateModal";
 
 // Animation variants
 const tableRowVariants = {
@@ -65,6 +67,7 @@ interface Flat {
   photos: Array<{ imageUrl: string }>;
   amenities: string[];
   isDeleted: boolean;
+  isActive:boolean;
   deletedAt?: string;
   createdAt: string;
   updatedAt: string;
@@ -81,10 +84,11 @@ export default function FlatManagementPage() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isRestoreDialogOpen, setIsRestoreDialogOpen] = useState(false);
 
-  const { data: flatsData, isLoading, error, refetch } = useGetAllFlatPostsAdminQuery({});
+  const { data: flatsData, isLoading, error, refetch } = useGetAllFlatBySuperAdminQuery({});
   const [updateFlat, { isLoading: updating }] = useUpdateFlatByAdminMutation();
   const [deleteFlat] = useDeleteFlatByAdminMutation();
-  // const [restoreFlat] = useRestoreFlatByAdminMutation();
+  const [restoreFlat] = useRetriveDeletedFlatBySuperAdminMutation();
+  const [reActiveFlat]=useActiveateDeactivatedFlatBySuperAdminMutation();
 
   const flats: Flat[] = flatsData || [];
 
@@ -124,10 +128,6 @@ export default function FlatManagementPage() {
     setIsDeleteDialogOpen(true);
   };
 
-  const handleRestore = (flat: Flat) => {
-    setSelectedFlat(flat);
-    setIsRestoreDialogOpen(true);
-  };
 
   const confirmDelete = async () => {
     if (!selectedFlat) return;
@@ -146,23 +146,32 @@ export default function FlatManagementPage() {
     }
   };
 
-  // const confirmRestore = async () => {
-  //   if (!selectedFlat) return;
+  const confirmRestore = async (id:string) => {
+    if (!id) return;
     
-  //   try {
-  //     const res = await restoreFlat(selectedFlat.id).unwrap();
-  //     if (res?.count) {
-  //       toast.success("Flat restored successfully");
-  //       refetch();
-  //     }
-  //   } catch (error) {
-  //     toast.error("Failed to restore flat");
-  //   } finally {
-  //     setIsRestoreDialogOpen(false);
-  //     setSelectedFlat(null);
-  //   }
-  // };
-
+    try {
+      const res = await restoreFlat(id).unwrap();
+      if (res?.count) {
+        toast.success("Flat restored successfully");
+        refetch();
+      }
+    } catch (error) {
+      toast.error("Failed to restore flat");
+    } finally {
+      setIsRestoreDialogOpen(false);
+      setSelectedFlat(null);
+    }
+  };
+const handleFlatActivationBySuperAdmin=async(id:string)=>{
+  try {
+    const res= await reActiveFlat(id).unwrap();
+    if(res.success){
+      toast.message(res.message)
+    }
+  } catch (error:any) {
+    console.log(error.message||"something went wrong ")
+  } 
+}
   const handleUpdateFlat = async (flatData: any) => {
     if (!selectedFlat) return;
     
@@ -210,7 +219,7 @@ export default function FlatManagementPage() {
         <Typography
           variant="h3"
           component="h1"
-          className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"
+          className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-purple-600"
           gutterBottom
         >
           Flat Management
@@ -258,6 +267,8 @@ export default function FlatManagementPage() {
               >
                 <MenuItem value="all">All Flats</MenuItem>
                 <MenuItem value="active">Active Only</MenuItem>
+                <MenuItem value="deactivated">Deactivate Only</MenuItem>
+
                 <MenuItem value="deleted">Deleted Only</MenuItem>
               </Select>
             </FormControl>
@@ -318,9 +329,11 @@ export default function FlatManagementPage() {
         <Paper className="rounded-2xl shadow-xl overflow-hidden border border-blue-100">
           <TableContainer>
             <Table>
-              <TableHead className="bg-gradient-to-r from-blue-500 to-purple-500">
+              <TableHead className="bg-gradient-to-r from-[#c5e9f2] to-[#e3f8fd]">
                 <TableRow>
-                  <TableCell className="text-white font-bold">Location</TableCell>
+                  <TableCell className="text-white font-bold">Select</TableCell>
+                   <TableCell className="text-white font-bold">Location</TableCell>
+
                   <TableCell className="text-white font-bold">Rent</TableCell>
                   <TableCell className="text-white font-bold">Bedrooms</TableCell>
                   <TableCell className="text-white font-bold">Status</TableCell>
@@ -362,6 +375,9 @@ export default function FlatManagementPage() {
                           flat.isDeleted ? 'bg-red-50' : ''
                         }`}
                       >
+                        <TableCell className="">
+                          <Input type="checkbox" disableUnderline className="w-5 h-auto" />
+                        </TableCell>
                         <TableCell>
                           <div>
                             <Typography variant="subtitle1" className="font-semibold">
@@ -399,7 +415,8 @@ export default function FlatManagementPage() {
                         </TableCell>
                         <TableCell>
                           <div  className="flex justify-center space-x-1">
-                            <Tooltip title="View Details">
+                            {
+                              flat.isActive ? <Tooltip title="View Details">
                               <Link href={`/flatDetails/${flat.id}`} >
                               
                               <IconButton
@@ -409,8 +426,23 @@ export default function FlatManagementPage() {
                                 <ViewIcon />
 
                               </IconButton>
+                              
                               </Link>
+                            </Tooltip> :<Tooltip title="Active flat">
+                              
+                              
+                              <IconButton
+                              onClick={()=>handleFlatActivationBySuperAdmin(flat.id)}
+                                className="text-blue-500 hover:bg-blue-100"
+                                size="small"
+                              >
+                                <ReplayIcon />
+
+                              </IconButton>
+                              
+                
                             </Tooltip>
+                            }
                             
                             <Tooltip title="Edit Flat">
                               <IconButton
@@ -426,7 +458,7 @@ export default function FlatManagementPage() {
                             {flat.isDeleted ? (
                               <Tooltip title="Restore Flat">
                                 <IconButton
-                                  onClick={() => handleRestore(flat)}
+                                  onClick={() => confirmRestore(flat.id)}
                                   className="text-orange-500 hover:bg-orange-100"
                                   size="small"
                                 >

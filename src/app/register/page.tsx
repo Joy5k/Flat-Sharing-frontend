@@ -39,10 +39,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 });
 
  const defaultValues = {
-  password: "",
+  
   user: {
     username: "",
     email: "",
+    password: "",
   },
 };
 
@@ -52,29 +53,29 @@ const RegisterPage = () => {
   const [error, setError] = useState<string>("");
   
   const handleRegister = async (values: FieldValues) => {
-    setLoading(true); // Move setLoading(true) to the beginning
-    
+    setLoading(true); 
+
     if (values.password !== values.confirmPassword) {
       setError("Passwords do not match. Please ensure both passwords are identical.");
-      setLoading(false); // Ensure setLoading(false) if there's an error
-      return; // Exit the function if there's an error
+      setLoading(false); 
+      return;
     }
     
-    // Destructure the confirmPassword from values
-    const { confirmPassword, ...registerData } = values;
-  
-   
+   const registerData={
+      username: values.user.username,
+      email: values.user.email,
+      password: values.password,
+   }
     
     try {
-      const res = await registerUser(registerData);
-
+      const res = await registerUser({user:registerData});
       if (res?.data?.id) {
         toast.success(res?.message);
         
         // Correct the object property accessing
         const result = await userLogin({
           password: values.password,
-          email: values.user.email, // Access email directly from values, not values.user.email
+          email: values.user.email,
         });
   
         if (result?.data?.accessToken) {
@@ -87,7 +88,7 @@ const RegisterPage = () => {
       console.error("Error:", error);
       toast.error("An error occurred while registering. Please try again.");
     } finally {
-      setLoading(false); // Ensure setLoading(false) after registration attempt
+      setLoading(false); 
     }
   };
   
